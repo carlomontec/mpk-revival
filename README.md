@@ -83,19 +83,19 @@ MPK-Revival includes deep, first-class controller scripts that revitalize the MP
 
 ### 2. Reason 14 (`MPK49 Revival`)
 * **Dedicated SSL 9000k Console Surface**: Complete 3-bank hardware mixing desk with custom modern 96×96 MPK49 icon.
-  * **Bank A (Levels & Master Bus Compressor)**:
+  * **Bank A (Levels, Master Bus Comp, & Solos)**:
     * Faders 1–8 $\rightarrow$ Channel Volume Levels 1–8
     * Knobs 1–5 $\rightarrow$ Master Bus Compressor (`Threshold`, `Ratio`, `Attack`, `Release`, `Make-Up Gain`)
     * Knobs 6–8 $\rightarrow$ Free for per-project user overrides
-    * Switches 1–8 $\rightarrow$ Channel EQ On/Bypass
-  * **Bank B (Pans & Reverb Sends)**:
+    * Switches 1–8 $\rightarrow$ Channel Solos
+  * **Bank B (Pans, Reverb Sends, & Mutes)**:
     * Faders 1–8 $\rightarrow$ FX1 Send Level (Reverb)
     * Knobs 1–8 $\rightarrow$ Channel Pan (Left $\leftrightarrow$ Right)
     * Switches 1–8 $\rightarrow$ Channel Mutes
-  * **Bank C (Delays & Master FX Returns)**:
+  * **Bank C (Delays, Master FX Returns, & EQ)**:
     * Faders 1–8 $\rightarrow$ FX2 Send Level (Delay)
     * Knobs 1–8 $\rightarrow$ **FX1–FX8 Return Levels** (direct control over all 8 master return buses!)
-    * Switches 1–8 $\rightarrow$ Channel Solos
+    * Switches 1–8 $\rightarrow$ Channel EQ On/Bypass
 * **Channel Banking**: `<<` (Rewind) and `>>` (Fast-Forward) bank 8 mixer channels at a time across your entire SSL desk.
 * **Automatic Rack Instrument Focus**: Select any instrument in the rack to automatically map filters, envelopes, and macros for **Europa**, **Grain**, **Mimic**, **Monotone**, **Complex-1**, **Klang**, **Radical Piano**, **Kong**, **Redrum**, **NN-XT**, **Thor**, **SubTractor**, and **Combinator**.
 * **Hardware Slot**: Preset **Slot 30** (`Reason14`).

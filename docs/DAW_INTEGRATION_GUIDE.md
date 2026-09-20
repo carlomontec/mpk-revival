@@ -100,9 +100,9 @@ Reason manages control surface focus differently from other DAWs. There are two 
 
 | Hardware Bank | Faders 1–8 | Knobs 1–8 | Switches 1–8 (Toggle) |
 | :--- | :--- | :--- | :--- |
-| **Bank A** *(Desk Levels)* | **Channel 1–8 Levels (Faders)** | **K1–K5: Master Bus Comp (K6–K8 Free)** | **Channel 1–8 EQ On (Bypass)** |
+| **Bank A** *(Desk Levels)* | **Channel 1–8 Levels (Faders)** | **K1–K5: Master Bus Comp (K6–K8 Free)** | **Channel 1–8 Solo** |
 | **Bank B** *(Mix & Pan)* | **Channel 1–8 FX1 Send (Reverb)** | **Channel 1–8 Pan (L/R)** | **Channel 1–8 Mute** |
-| **Bank C** *(Aux & Returns)* | **Channel 1–8 FX2 Send (Delay)** | **FX1–FX8 Return Levels** | **Channel 1–8 Solo** |
+| **Bank C** *(Aux & Returns)* | **Channel 1–8 FX2 Send (Delay)** | **FX1–FX8 Return Levels** | **Channel 1–8 EQ On (Bypass)** |
 
 #### Knob Allocations in Master Section:
 * **Bank A (Master Bus Compressor)**:

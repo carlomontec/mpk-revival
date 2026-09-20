@@ -117,7 +117,7 @@ Scope	Propellerheads	Reason Master Section
 Map	Rewind		Previous 8 Remote Base Channel
 Map	Fast Forward		Next 8 Remote Base Channel
 
-// Bank A: Channel Levels 1-8, Master Bus Compressor & Master FX, Channel 1-8 EQ On
+// Bank A: Channel Levels 1-8, Master Bus Compressor & Master FX, Channel 1-8 Solo
 Map	Fader 1		Channel 1 Level
 Map	Fader 2		Channel 2 Level
 Map	Fader 3		Channel 3 Level
@@ -134,14 +134,14 @@ Map	Knob 4		Release
 Map	Knob 5		Make-Up Gain
 // Knobs 6, 7, 8: Free for user assignment / Remote Override
 
-Map	Switch 1		Channel 1 EQ On
-Map	Switch 2		Channel 2 EQ On
-Map	Switch 3		Channel 3 EQ On
-Map	Switch 4		Channel 4 EQ On
-Map	Switch 5		Channel 5 EQ On
-Map	Switch 6		Channel 6 EQ On
-Map	Switch 7		Channel 7 EQ On
-Map	Switch 8		Channel 8 EQ On
+Map	Switch 1		Channel 1 Solo
+Map	Switch 2		Channel 2 Solo
+Map	Switch 3		Channel 3 Solo
+Map	Switch 4		Channel 4 Solo
+Map	Switch 5		Channel 5 Solo
+Map	Switch 6		Channel 6 Solo
+Map	Switch 7		Channel 7 Solo
+Map	Switch 8		Channel 8 Solo
 
 // Bank B: Channel Pan 1-8, FX1 Send 1-8, Channel Mute 1-8
 Map	Knob 9		Channel 1 Pan
@@ -171,7 +171,7 @@ Map	Switch 14		Channel 6 Mute
 Map	Switch 15		Channel 7 Mute
 Map	Switch 16		Channel 8 Mute
 
-// Bank C: FX2 Send 1-8, Channel Solo 1-8
+// Bank C: FX2 Send 1-8, Master FX Returns 1-8, Channel EQ On 1-8
 Map	Fader 17		Channel 1 FX2 Send Level
 Map	Fader 18		Channel 2 FX2 Send Level
 Map	Fader 19		Channel 3 FX2 Send Level
@@ -190,14 +190,14 @@ Map	Knob 22		FX6 Return Level
 Map	Knob 23		FX7 Return Level
 Map	Knob 24		FX8 Return Level
 
-Map	Switch 17		Channel 1 Solo
-Map	Switch 18		Channel 2 Solo
-Map	Switch 19		Channel 3 Solo
-Map	Switch 20		Channel 4 Solo
-Map	Switch 21		Channel 5 Solo
-Map	Switch 22		Channel 6 Solo
-Map	Switch 23		Channel 7 Solo
-Map	Switch 24		Channel 8 Solo
+Map	Switch 17		Channel 1 EQ On
+Map	Switch 18		Channel 2 EQ On
+Map	Switch 19		Channel 3 EQ On
+Map	Switch 20		Channel 4 EQ On
+Map	Switch 21		Channel 5 EQ On
+Map	Switch 22		Channel 6 EQ On
+Map	Switch 23		Channel 7 EQ On
+Map	Switch 24		Channel 8 EQ On
 
 
 // Kong Drum Designer
