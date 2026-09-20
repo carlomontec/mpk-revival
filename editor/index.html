@@ -13,171 +13,500 @@
 <body>
 
   <!-- Topbar -->
+  <!-- Topbar: Structured 2-Row Console -->
   <header class="topbar">
-    <div class="brand">
-      <span class="brand-logo">AKAI</span>
-      <span class="brand-title">MPK-Revival <span>Studio</span></span>
-      <span class="brand-by">by <a href="https://github.com/carlomontec" target="_blank" rel="noopener noreferrer">@carlomontec</a></span>
-    </div>
-    <div class="top-actions">
-      <div id="midi-status-pill" class="btn-secondary" style="pointer-events: none; border-color: #334155;">
-        <span id="midi-led" style="width: 8px; height: 8px; border-radius: 50%; background: #ef4444; display: inline-block;"></span>
-        <span id="midi-status-text">Disconnected</span>
+    <!-- Row 1: Preset Management & Hardware Push -->
+    <div class="topbar-row topbar-row-primary">
+      <div class="brand">
+        <span class="brand-logo">AKAI</span>
+        <span class="brand-title">MPK-Revival <span>Studio</span></span>
       </div>
-      <button id="btn-connect-midi" class="btn-secondary">
-        🔌 Connect Web MIDI
-      </button>
-      <a href="https://github.com/carlomontec/mpk-revival" target="_blank" rel="noopener noreferrer" class="btn-secondary" style="text-decoration: none; color: inherit; display: inline-flex; align-items: center; gap: 6px;" title="View Source on GitHub">
-        <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
-        GitHub
-      </a>
-      <a href="poc/" class="btn-secondary" style="text-decoration: none; color: inherit;" title="Open raw low-level SysEx sniffer">
-        🛠️ SysEx Diagnostics
-      </a>
+
+      <div class="topbar-group">
+        <div class="library-picker">
+          <label for="preset-template-select"><strong>Preset:</strong></label>
+          <select id="preset-template-select" class="toolbar-select">
+            <optgroup id="optgroup-user-presets" label="My Saved Presets">
+              <!-- Populated from localStorage -->
+            </optgroup>
+            <optgroup id="optgroup-factory-presets" label="Factory Templates">
+              <option value="factory:Slot 01: PTEX">Slot 01: PTEX</option>
+              <option value="factory:Slot 02: LiveLite">Slot 02: LiveLite</option>
+              <option value="factory:Slot 03: Reason">Slot 03: Reason</option>
+              <option value="factory:Slot 04: Cubase">Slot 04: Cubase</option>
+              <option value="factory:Slot 05: Sonar">Slot 05: Sonar</option>
+              <option value="factory:Slot 06: ApplidAc">Slot 06: ApplidAc</option>
+              <option value="factory:Slot 07: Arturia">Slot 07: Arturia</option>
+              <option value="factory:Slot 08: FxPanBFD">Slot 08: FxPanBFD</option>
+              <option value="factory:Slot 09: FxPanGUR">Slot 09: FxPanGUR</option>
+              <option value="factory:Slot 10: GMedia">Slot 10: GMedia</option>
+              <option value="factory:Slot 11: RobPapen">Slot 11: RobPapen</option>
+              <option value="factory:Slot 12: SpectATM">Slot 12: SpectATM</option>
+              <option value="factory:Slot 13: SpectRMX">Slot 13: SpectRMX</option>
+              <option value="factory:Slot 14: SpectTRL">Slot 14: SpectTRL</option>
+              <option value="factory:Slot 15: Virsyn">Slot 15: Virsyn</option>
+              <option value="factory:Slot 16: GM Drums">Slot 16: GM Drums</option>
+              <option value="factory:Slot 17: ArkaosVJ">Slot 17: ArkaosVJ</option>
+              <option value="factory:Slot 18: Generic">Slot 18: Generic</option>
+              <option value="factory:Slot 19: Generic">Slot 19: Generic</option>
+              <option value="factory:Slot 20: Generic">Slot 20: Generic</option>
+              <option value="factory:Slot 21: Generic">Slot 21: Generic</option>
+              <option value="factory:Slot 22: Generic">Slot 22: Generic</option>
+              <option value="factory:Slot 23: Generic">Slot 23: Generic</option>
+              <option value="factory:Slot 24: Generic">Slot 24: Generic</option>
+              <option value="factory:Slot 25: Generic">Slot 25: Generic</option>
+              <option value="factory:Slot 26: Generic">Slot 26: Generic</option>
+              <option value="factory:Slot 27: Generic">Slot 27: Generic</option>
+              <option value="factory:Slot 28: Generic">Slot 28: Generic</option>
+              <option value="factory:Slot 29: Generic">Slot 29: Generic</option>
+              <option value="factory:Slot 30: Generic">Slot 30: Generic</option>
+            </optgroup>
+          </select>
+        </div>
+
+        <button id="btn-save-local" class="btn-tool btn-save" title="Save preset to browser local library">
+          💾 Save
+        </button>
+        <button id="btn-new-preset" class="btn-tool btn-new" title="Create a new preset">
+          ➕ New
+        </button>
+        <button id="btn-delete-local" class="btn-tool btn-delete" style="display: none;" title="Delete this saved preset">
+          🗑️ Delete
+        </button>
+      </div>
+
+      <div class="topbar-group">
+        <div class="slot-picker">
+          <label for="target-slot-select"><strong>Slot:</strong></label>
+          <select id="target-slot-select" class="toolbar-select">
+            <!-- 1 to 30 -->
+          </select>
+        </div>
+
+        <button id="btn-push-mpk" class="btn-push">
+          ⚡️ Send to MPK49
+        </button>
+      </div>
+
+      <div class="topbar-group">
+        <input type="file" id="file-input-syx" accept=".syx,.json" style="display: none;">
+        <button id="btn-load-file" class="btn-tool">
+          📂 Open
+        </button>
+        <button id="btn-export-syx" class="btn-tool">
+          💾 Export .syx
+        </button>
+        <button id="btn-export-json" class="btn-tool">
+          📄 .json
+        </button>
+      </div>
+    </div>
+
+    <!-- Row 2: Hardware Connection, Live Follow & Controls -->
+    <div class="topbar-row topbar-row-secondary">
+      <div class="topbar-group">
+        <div id="midi-status-pill" class="midi-pill fixed-midi-status" title="Hardware connection state">
+          <span id="midi-led" class="led-red"></span>
+          <span id="midi-status-text">Disconnected</span>
+        </div>
+        <div id="midi-activity-pill" class="midi-activity-pill fixed-midi-activity" title="Live incoming MIDI message">
+          <span class="activity-dot" id="activity-dot"></span>
+          <span id="midi-activity-text">MIDI IDLE</span>
+        </div>
+        <button id="btn-connect-midi" class="btn-tool btn-connect">
+          🔌 Connect MIDI
+        </button>
+      </div>
+
+      <div class="topbar-group">
+        <div class="library-picker hardware-picker" title="Select what preset is currently active on your physical MPK49 keyboard so Live Follow maps precisely to what your hands are touching">
+          <label for="hw-profile-select"><strong>🎹 MPK on Desk:</strong></label>
+          <select id="hw-profile-select" class="toolbar-select">
+            <option value="factory:Slot 02: LiveLite" selected>Slot 02: LiveLite</option>
+            <option value="factory:Slot 03: Reason">Slot 03: Reason</option>
+            <option value="factory:Slot 01: PTEX">Slot 01: PTEX</option>
+            <option value="factory:Slot 04: Cubase">Slot 04: Cubase</option>
+            <option value="factory:Slot 05: Sonar">Slot 05: Sonar</option>
+            <option value="factory:Slot 06: ApplidAc">Slot 06: ApplidAc</option>
+            <option value="factory:Slot 07: Arturia">Slot 07: Arturia</option>
+            <option value="factory:Slot 08: FxPanBFD">Slot 08: FxPanBFD</option>
+            <option value="factory:Slot 09: FxPanGUR">Slot 09: FxPanGUR</option>
+            <option value="factory:Slot 10: GMedia">Slot 10: GMedia</option>
+            <option value="factory:Slot 11: RobPapen">Slot 11: RobPapen</option>
+            <option value="factory:Slot 12: SpectATM">Slot 12: SpectATM</option>
+            <option value="factory:Slot 13: SpectRMX">Slot 13: SpectRMX</option>
+            <option value="factory:Slot 14: SpectTRL">Slot 14: SpectTRL</option>
+            <option value="factory:Slot 15: Virsyn">Slot 15: Virsyn</option>
+            <option value="factory:Slot 16: GM Drums">Slot 16: GM Drums</option>
+            <option value="factory:Slot 17: ArkaosVJ">Slot 17: ArkaosVJ</option>
+            <option value="factory:Slot 18: Generic">Slot 18: Generic</option>
+            <option value="factory:Slot 19: Generic">Slot 19: Generic</option>
+            <option value="factory:Slot 20: Generic">Slot 20: Generic</option>
+            <option value="factory:Slot 21: Generic">Slot 21: Generic</option>
+            <option value="factory:Slot 22: Generic">Slot 22: Generic</option>
+            <option value="factory:Slot 23: Generic">Slot 23: Generic</option>
+            <option value="factory:Slot 24: Generic">Slot 24: Generic</option>
+            <option value="factory:Slot 25: Generic">Slot 25: Generic</option>
+            <option value="factory:Slot 26: Generic">Slot 26: Generic</option>
+            <option value="factory:Slot 27: Generic">Slot 27: Generic</option>
+            <option value="factory:Slot 28: Generic">Slot 28: Generic</option>
+            <option value="factory:Slot 29: Generic">Slot 29: Generic</option>
+            <option value="factory:Slot 30: Generic">Slot 30: Generic</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="topbar-group">
+        <button id="btn-toggle-follow" class="btn-tool btn-follow-toggle" title="Touch controls or keys on MPK49 to jump straight to them in GUI">
+          🎯 Live Follow: ON
+        </button>
+        <button id="btn-toggle-sound" class="btn-tool btn-sound-toggle" title="Toggle audio preview sound">
+          🔊 Sound: ON
+        </button>
+      </div>
+
+      <div class="topbar-group topbar-right-links">
+        <a href="https://github.com/carlomontec/mpk-revival" target="_blank" rel="noopener noreferrer" class="btn-tool btn-github" title="View Source on GitHub">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
+          GitHub
+        </a>
+        <a href="poc/" class="btn-tool" title="Open raw low-level SysEx sniffer">
+          🛠️ SysEx
+        </a>
+        <span class="brand-by">by <a href="https://github.com/carlomontec" target="_blank" rel="noopener noreferrer">@carlomontec</a></span>
+      </div>
     </div>
   </header>
 
-  <!-- Studio Toolbar -->
-  <nav class="studio-toolbar">
-    <div class="preset-controls">
-      <button id="btn-new-preset" class="btn-secondary" style="border-color: #3b82f6; color: #60a5fa;">
-        ➕ New Preset
-      </button>
+  <!-- Main Hardware Synth Console -->
+  <main class="console-chassis">
 
-      <div class="library-picker">
-        <label for="preset-template-select"><strong>Preset:</strong></label>
-        <select id="preset-template-select" class="toolbar-select">
-          <optgroup id="optgroup-user-presets" label="My Saved Presets">
-            <!-- Populated from localStorage -->
-          </optgroup>
-          <optgroup id="optgroup-factory-presets" label="Factory Templates">
-            <option value="factory:Reason 14 (Factory)">Reason 14 (Factory - Slot 03)</option>
-            <option value="factory:Ableton LiveLite">Ableton LiveLite (Slot 02)</option>
-            <option value="factory:Cubase">Cubase (Slot 04)</option>
-            <option value="factory:Arturia">Arturia (Slot 07)</option>
-            <option value="factory:GM Drums">GM Drums (Slot 16)</option>
-            <option value="factory:Generic Template">Generic Template (Slot 30)</option>
-          </optgroup>
-        </select>
+    <!-- Top Hardware Edge Sockets -->
+    <div class="chassis-top-edge">
+      <div class="rear-jack-group" id="btn-socket-exp">
+        <div class="jack-label">EXPRESSION PEDAL</div>
+        <div class="jack-socket"><div class="jack-hole"></div></div>
       </div>
-
-      <button id="btn-save-local" class="btn-secondary" style="color: #34d399; border-color: rgba(52, 211, 153, 0.4);" title="Save preset to browser local library">
-        💾 Save to Library
-      </button>
-      <button id="btn-delete-local" class="btn-secondary" style="color: #f87171; display: none;" title="Delete this saved preset">
-        🗑️ Delete
-      </button>
-
-      <div class="library-picker" style="margin-left: 10px;">
-        <label for="target-slot-select"><strong>Slot:</strong></label>
-        <select id="target-slot-select" class="toolbar-select">
-          <!-- Populated 1 to 30 -->
-        </select>
+      <div class="rear-jack-group" id="btn-socket-sus">
+        <div class="jack-label">SUSTAIN PEDAL</div>
+        <div class="jack-socket"><div class="jack-hole"></div></div>
       </div>
-
-      <input type="file" id="file-input-syx" accept=".syx,.json" style="display: none;">
-      <button id="btn-load-file" class="btn-secondary">
-        📂 Open File
-      </button>
     </div>
 
-    <div class="preset-controls">
-      <button id="btn-export-syx" class="btn-secondary">
-        💾 Export .syx
-      </button>
-      <button id="btn-export-json" class="btn-secondary">
-        📄 Export .json
-      </button>
-      <button id="btn-push-mpk" class="btn-push">
-        ⚡️ Send to MPK49
-      </button>
-    </div>
-  </nav>
+    <!-- Upper Section: Main Surface (Left) + Master Console Rack (Right) -->
+    <div class="chassis-main-grid">
 
-  <!-- Main Hardware Canvas -->
-  <main class="studio-canvas">
-    <div class="hardware-chassis">
+      <!-- LEFT: Swappable Main Surface -->
+      <section class="main-surface-panel">
 
-      <!-- Backlit LCD Header -->
-      <section class="lcd-display-container">
-        <div class="lcd-screen">
-          <div class="lcd-line-1">
-            <span>AKAI MPK49 STUDIO</span>
-            <span id="lcd-clock">120 BPM &bull; INT</span>
+        <!-- Surface View 1: 12 MPC Pads (3 cols x 4 rows) -->
+        <div id="surface-pads-view" class="surface-view active">
+          <div class="surface-header">
+            <span class="surface-title">MPC PAD MATRIX (BANK <span id="current-pad-bank-label">A</span>)</span>
+            <span class="surface-hint">Click pad to inspect & edit</span>
           </div>
-          <div class="lcd-line-2">
-            <span id="lcd-slot-num" class="lcd-slot">03:</span>
-            <input type="text" id="lcd-preset-name" class="lcd-name-input" maxlength="8" value="Reason">
+          <div id="mpc-pads-grid" class="mpc-pads-3x4">
+            <!-- Dynamically rendered (Pads 10,11,12 top down to 1,2,3 bottom) -->
           </div>
         </div>
 
-        <div style="display: flex; gap: 16px; align-items: center;">
-          <div style="font-size: 0.82rem; color: var(--text-secondary); text-align: right;">
-            <div>Click any Pad, Knob, or Slider to edit</div>
-            <div style="color: #38bdf8;">Real-time 1,033-byte memory sync</div>
+        <!-- Surface View 2: 8 Channel Strips (K1..K8, F1..F8, S1..S8) -->
+        <div id="surface-controls-view" class="surface-view">
+          <div class="surface-header">
+            <span class="surface-title">CONTROLLER CHANNEL STRIPS (BANK <span id="current-ctrl-bank-label">A</span>)</span>
+            <span class="surface-hint">Click knob, fader, or switch to inspect</span>
+          </div>
+          <div id="controls-channels-grid" class="channels-8col">
+            <!-- Dynamically rendered 8 channel strips -->
           </div>
         </div>
+
+        <!-- Surface View 3: Global / Pedals / Transport View -->
+        <div id="surface-global-view" class="surface-view">
+          <div class="surface-header">
+            <span class="surface-title">GLOBAL PERFORMANCE & PEDALS</span>
+            <span class="surface-hint">Configure hardware pedals and wheels</span>
+          </div>
+          <div class="global-panels-grid">
+            <div class="global-card" id="card-mod-wheel">
+              <h4>Modulation Wheel</h4>
+              <div class="global-card-body">
+                <div class="param-row"><span>Assigned CC:</span> <strong id="lbl-mod-cc">CC 1</strong></div>
+                <div class="param-row"><span>MIDI Channel:</span> <strong id="lbl-mod-ch">1</strong></div>
+                <div class="param-row"><span>Range:</span> <strong>0 – 127</strong></div>
+              </div>
+            </div>
+            <div class="global-card" id="card-exp-pedal">
+              <h4>Expression Pedal</h4>
+              <div class="global-card-body">
+                <div class="param-row"><span>Assigned CC:</span> <strong id="lbl-exp-cc">CC 11</strong></div>
+                <div class="param-row"><span>MIDI Channel:</span> <strong id="lbl-exp-ch">1</strong></div>
+                <div class="param-row"><span>Range:</span> <strong>0 – 127</strong></div>
+              </div>
+            </div>
+            <div class="global-card" id="card-sus-pedal">
+              <h4>Sustain Pedal (FS 1)</h4>
+              <div class="global-card-body">
+                <div class="param-row"><span>Assigned CC:</span> <strong id="lbl-sus-cc">CC 64</strong></div>
+                <div class="param-row"><span>Mode:</span> <strong>Momentary</strong></div>
+              </div>
+            </div>
+            <div class="global-card" id="card-transport-cfg">
+              <h4>DAW Transport Mode</h4>
+              <div class="global-card-body">
+                <div class="param-row"><span>Transport Mode:</span> <strong id="lbl-trans-mode">MIDI CC</strong></div>
+                <div class="param-row"><span>Clock Source:</span> <strong id="lbl-clock-src">Internal</strong></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
       </section>
 
-      <!-- Main Hardware Grid -->
-      <div class="hardware-sections-grid">
+      <!-- RIGHT: Master Console & Blue LCD Display Rack -->
+      <section class="master-console-panel">
 
-        <!-- Left: MPC Drum Pads -->
-        <section class="section-box">
-          <div class="section-box-header">
-            <h2>MPC Pads</h2>
-            <div class="bank-tabs">
-              <button class="bank-tab active" data-pad-bank="A">Bank A</button>
-              <button class="bank-tab" data-pad-bank="B">Bank B</button>
-              <button class="bank-tab" data-pad-bank="C">Bank C</button>
-              <button class="bank-tab" data-pad-bank="D">Bank D</button>
+        <!-- Red Banner: EDITOR MODES -->
+        <div class="red-banner-strip">
+          <span class="strip-label">EDITOR MODES</span>
+          <div class="strip-buttons">
+            <button class="capsule-btn active" data-editor-mode="preset">
+              PRESET <span class="capsule-led led-cyan"></span>
+            </button>
+            <button class="capsule-btn" data-editor-mode="global">
+              GLOBAL <span class="capsule-led"></span>
+            </button>
+            <button class="capsule-btn" data-editor-mode="data">
+              DATA <span class="capsule-led"></span>
+            </button>
+            <button class="capsule-btn" data-editor-mode="extra">
+              EXTRA <span class="capsule-led"></span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Master Glowing Blue LCD Screen -->
+        <div class="lcd-master-screen">
+          <!-- LCD Line 1: Header / Preset Name / Slot -->
+          <div class="lcd-top-bar">
+            <div class="lcd-preset-tag">
+              &lt; <input type="text" id="lcd-preset-name" class="lcd-name-field" maxlength="8" value="Reason" spellcheck="false"> &gt;
+            </div>
+            <div class="lcd-sync-badge">SYNC</div>
+            <div class="lcd-slot-badge">
+              <span id="lcd-slot-num">03</span>
             </div>
           </div>
 
-          <!-- 12-Pad Grid (3 rows x 4 columns) -->
-          <div id="mpc-pads-container" class="mpc-pad-grid">
-            <!-- Dynamically rendered -->
-          </div>
-        </section>
-
-        <!-- Right: Continuous Controllers (Knobs, Faders, Switches) -->
-        <section class="section-box">
-          <div class="section-box-header">
-            <h2>Controllers</h2>
-            <div class="bank-tabs">
-              <button class="bank-tab active" data-ctrl-bank="A">Bank A</button>
-              <button class="bank-tab" data-ctrl-bank="B">Bank B</button>
-              <button class="bank-tab" data-ctrl-bank="C">Bank C</button>
-            </div>
+          <!-- LCD Line 2: Selection Header -->
+          <div class="lcd-select-header" id="lcd-selection-header">
+            Select: Pad 1, Bank A
           </div>
 
-          <!-- Rotary Knobs Row -->
-          <div>
-            <div style="font-size: 0.75rem; color: var(--text-muted); text-transform: uppercase; margin-bottom: 4px;">Rotary Encoders (K1 – K8)</div>
-            <div id="knobs-container" class="knobs-row">
-              <!-- Dynamically rendered -->
-            </div>
+          <!-- LCD Inspector Body (Tabs + Inputs) -->
+          <div class="lcd-inspector-body" id="lcd-inspector-body">
+            <!-- Populated dynamically based on selected control -->
           </div>
+        </div>
 
-          <!-- Faders Row -->
-          <div style="margin-top: 10px;">
-            <div style="font-size: 0.75rem; color: var(--text-muted); text-transform: uppercase; margin-bottom: 4px;">Long-Throw Faders (S1 – S8)</div>
-            <div id="faders-container" class="faders-row">
-              <!-- Dynamically rendered -->
-            </div>
+        <!-- Akai Professional + Red MPK49 Metallic Brand -->
+        <div class="chassis-brand-plate">
+          <div class="akai-logo-box">
+            <span class="akai-text">AKAI</span>
+            <span class="pro-text">professional</span>
           </div>
+          <div class="mpk-badge-box">
+            <span class="mpk-name">MPK<span>49</span></span>
+            <span class="mpk-subtitle">USB/MIDI PERFORMANCE KEYBOARD</span>
+          </div>
+        </div>
 
-          <!-- Switches Row -->
-          <div style="margin-top: 10px;">
-            <div style="font-size: 0.75rem; color: var(--text-muted); text-transform: uppercase; margin-bottom: 4px;">Assignable Switches (SW1 – SW8)</div>
-            <div id="switches-container" class="switches-row">
-              <!-- Dynamically rendered -->
+        <!-- Red Banner: BLOCK SELECT -->
+        <div class="red-banner-strip">
+          <span class="strip-label">BLOCK SELECT</span>
+          <div class="strip-buttons">
+            <button id="btn-block-pads" class="capsule-btn active" data-block="pads">
+              PADS <span class="capsule-led led-cyan"></span>
+            </button>
+            <button id="btn-block-controls" class="capsule-btn" data-block="controls">
+              CONTROLS <span class="capsule-led"></span>
+            </button>
+            <button id="btn-block-misc" class="capsule-btn" data-block="misc">
+              MISC <span class="capsule-led"></span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Lower Glowing Blue LCD: Master Arp & Global Status -->
+        <div class="lcd-master-screen lcd-lower-screen">
+          <div class="lcd-status-matrix">
+            <div class="matrix-cell" id="cell-octave" title="Click to edit Octave">
+              <div class="cell-label">OCTAVE</div>
+              <div class="cell-value" id="val-octave">0</div>
+            </div>
+            <div class="matrix-cell" id="cell-transpose" title="Click to edit Transpose">
+              <div class="cell-label">TRANSPOSE</div>
+              <div class="cell-value" id="val-transpose">0</div>
+            </div>
+            <div class="matrix-cell" id="cell-tempo" title="Click to edit Tempo BPM">
+              <div class="cell-label">TEMPO</div>
+              <div class="cell-value" id="val-tempo">120</div>
+            </div>
+            <div class="matrix-cell" id="cell-timediv" title="Click to edit Time Division">
+              <div class="cell-label">TIME DIV.</div>
+              <div class="cell-value" id="val-timediv">1/16</div>
+            </div>
+
+            <div class="matrix-cell" id="cell-arptype" title="Click to edit Arp Type">
+              <div class="cell-label">ARP TYPE</div>
+              <div class="cell-value" id="val-arptype">Up</div>
+            </div>
+            <div class="matrix-cell" id="cell-arprange" title="Click to edit Arp Range">
+              <div class="cell-label">ARP RANGE</div>
+              <div class="cell-value" id="val-arprange">+0</div>
+            </div>
+            <div class="matrix-cell" id="cell-arpgate" title="Click to edit Arp Gate">
+              <div class="cell-label">ARP GATE</div>
+              <div class="cell-value" id="val-arpgate">50</div>
+            </div>
+            <div class="matrix-cell" id="cell-arpswing" title="Click to edit Arp Swing">
+              <div class="cell-label">ARP SWING</div>
+              <div class="cell-value" id="val-arpswing">50</div>
             </div>
           </div>
-        </section>
+        </div>
+
+      </section>
+
+    </div>
+
+    <!-- Performance Controls Strip (Orange Banner & Tactile Buttons) -->
+    <div class="performance-strip">
+      <div class="orange-banner-label">PERFORMANCE CONTROLS</div>
+      <div class="performance-controls-row">
+
+        <!-- Keyboard Arp Section -->
+        <div class="perf-group">
+          <div class="perf-buttons">
+            <button class="tactile-btn" id="btn-arp-onoff">
+              <span>ARP ON/OFF</span>
+              <span class="btn-led led-green" id="led-arp-onoff"></span>
+            </button>
+            <button class="tactile-btn" id="btn-arp-latch">
+              <span>LATCH</span>
+              <span class="btn-led" id="led-arp-latch"></span>
+            </button>
+          </div>
+          <div class="sub-red-label">KEYBOARD</div>
+        </div>
+
+        <!-- Pad Banks (A, B, C, D) -->
+        <div class="perf-group">
+          <div class="group-caption">PAD BANK</div>
+          <div class="perf-buttons">
+            <button class="tactile-btn active-green" data-pad-bank="A">
+              <span>A</span>
+              <span class="btn-led led-green"></span>
+            </button>
+            <button class="tactile-btn" data-pad-bank="B">
+              <span>B</span>
+              <span class="btn-led"></span>
+            </button>
+            <button class="tactile-btn" data-pad-bank="C">
+              <span>C</span>
+              <span class="btn-led"></span>
+            </button>
+            <button class="tactile-btn" data-pad-bank="D">
+              <span>D</span>
+              <span class="btn-led"></span>
+            </button>
+          </div>
+          <div class="sub-red-label">PADS</div>
+        </div>
+
+        <!-- Pad Modifiers (Full Level, 12 Level, Note Repeat) -->
+        <div class="perf-group">
+          <div class="perf-buttons" style="margin-top: 14px;">
+            <button class="tactile-btn" id="btn-full-level">
+              <span>FULL LEVEL</span>
+              <span class="btn-led led-amber" id="led-full-level"></span>
+            </button>
+            <button class="tactile-btn" id="btn-12-level">
+              <span>12 LEVEL</span>
+              <span class="btn-led" id="led-12-level"></span>
+            </button>
+            <button class="tactile-btn" id="btn-note-repeat">
+              <span>NOTE REPEAT</span>
+              <span class="btn-led" id="led-note-repeat"></span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Control Banks (A, B, C) -->
+        <div class="perf-group">
+          <div class="group-caption">CONTROL BANK</div>
+          <div class="perf-buttons">
+            <button class="tactile-btn active-green" data-ctrl-bank="A">
+              <span>A</span>
+              <span class="btn-led led-green"></span>
+            </button>
+            <button class="tactile-btn" data-ctrl-bank="B">
+              <span>B</span>
+              <span class="btn-led"></span>
+            </button>
+            <button class="tactile-btn" data-ctrl-bank="C">
+              <span>C</span>
+              <span class="btn-led"></span>
+            </button>
+          </div>
+          <div class="sub-red-label">CONTROLS</div>
+        </div>
+
+        <!-- DAW Transport Section -->
+        <div class="perf-group transport-group">
+          <div class="group-caption">DAW TRANSPORT (<span id="lbl-transport-mode-indicator">CC</span>)</div>
+          <div class="perf-buttons">
+            <button class="tactile-btn btn-transport" id="btn-tr-rew" title="Rewind">
+              <span>&laquo;</span>
+            </button>
+            <button class="tactile-btn btn-transport" id="btn-tr-ff" title="Fast Forward">
+              <span>&raquo;</span>
+            </button>
+            <button class="tactile-btn btn-transport" id="btn-tr-stop" title="Stop">
+              <span>&#9632;</span>
+            </button>
+            <button class="tactile-btn btn-transport" id="btn-tr-play" title="Play">
+              <span style="color: #4ade80;">&#9658;</span>
+            </button>
+            <button class="tactile-btn btn-transport" id="btn-tr-rec" title="Record">
+              <span style="color: #f87171;">&#9679;</span>
+            </button>
+          </div>
+        </div>
 
       </div>
     </div>
+
+    <!-- Bottom Keyboard & Wheels Section -->
+    <div class="chassis-bottom-keybed">
+      <!-- Pitch Bend & Mod Wheels -->
+      <div class="wheels-flank">
+        <div class="wheel-slot" id="wheel-pitch">
+          <div class="wheel-tire"><div class="wheel-groove"></div></div>
+          <div class="wheel-label">PITCH</div>
+        </div>
+        <div class="wheel-slot" id="wheel-mod">
+          <div class="wheel-tire"><div class="wheel-groove"></div></div>
+          <div class="wheel-label">MOD</div>
+        </div>
+      </div>
+
+      <!-- 49-Key Synthesizer Piano Keybed (C1 to C5, 49 keys) -->
+      <div class="piano-keybed" id="piano-keybed">
+        <!-- 49 keys injected dynamically -->
+      </div>
+    </div>
+
   </main>
 
   <!-- Studio Footer -->
@@ -187,23 +516,6 @@
       <span>Made with 🎹 by <a href="https://github.com/carlomontec" target="_blank" rel="noopener noreferrer">@carlomontec</a> &bull; <a href="https://github.com/carlomontec/mpk-revival" target="_blank" rel="noopener noreferrer">GitHub Project</a></span>
     </div>
   </footer>
-
-  <!-- Edit Modal -->
-  <div id="edit-modal" class="modal-overlay hidden">
-    <div class="modal-card">
-      <div class="modal-header">
-        <h3 id="modal-title">Edit Parameter</h3>
-        <button id="btn-modal-close" class="btn-close">&times;</button>
-      </div>
-      <div id="modal-body">
-        <!-- Injected dynamically based on item type -->
-      </div>
-      <div class="modal-actions">
-        <button id="btn-modal-cancel" class="btn-secondary">Cancel</button>
-        <button id="btn-modal-save" class="btn-push" style="padding: 6px 14px; font-size: 0.85rem;">Save Parameter</button>
-      </div>
-    </div>
-  </div>
 
   <!-- New Preset Modal -->
   <div id="new-preset-modal" class="modal-overlay hidden">
@@ -233,7 +545,7 @@
         </div>
       </div>
       <div class="modal-actions">
-        <button id="btn-new-modal-cancel" class="btn-secondary">Cancel</button>
+        <button id="btn-new-modal-cancel" class="btn-tool">Cancel</button>
         <button id="btn-new-modal-create" class="btn-push" style="padding: 6px 14px; font-size: 0.85rem;">Create & Edit</button>
       </div>
     </div>

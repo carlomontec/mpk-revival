@@ -39,23 +39,50 @@ body {
   flex-direction: column;
 }
 
-/* Header & Top Bar */
+/* Header & Top Bar: Defined 2-Row Console */
 .topbar {
   background: var(--bg-panel);
   border-bottom: 1px solid var(--border-panel);
-  padding: 12px 24px;
+  padding: 8px 18px;
   display: flex;
-  justify-content: space-between;
-  align-items: center;
+  flex-direction: column;
+  gap: 8px;
   position: sticky;
   top: 0;
   z-index: 50;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.topbar-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  width: 100%;
+}
+
+.topbar-row-primary {
+  padding-bottom: 6px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.topbar-row-secondary {
+  padding-top: 2px;
+}
+
+.topbar-group {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-shrink: 0;
 }
 
 .brand {
   display: flex;
   align-items: center;
-  gap: 12px;
+  gap: 8px;
+  flex-shrink: 0;
 }
 
 .brand-logo {
@@ -79,35 +106,26 @@ body {
   font-weight: 400;
 }
 
-.top-actions {
-  display: flex;
-  align-items: center;
-  gap: 12px;
+.brand-by {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  margin-left: 6px;
 }
 
-/* Studio Toolbar */
-.studio-toolbar {
-  background: var(--bg-panel);
-  border-bottom: 1px solid var(--border-panel);
-  padding: 12px 24px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  flex-wrap: wrap;
-  gap: 14px;
+.brand-by a {
+  color: #7dd3fc;
+  text-decoration: none;
 }
 
-.preset-controls {
-  display: flex;
-  align-items: center;
-  gap: 14px;
+.brand-by a:hover {
+  text-decoration: underline;
 }
 
-.library-picker {
+.library-picker, .slot-picker {
   display: flex;
   align-items: center;
-  gap: 8px;
-  font-size: 0.85rem;
+  gap: 6px;
+  font-size: 0.8rem;
   color: var(--text-secondary);
 }
 
@@ -115,33 +133,226 @@ select.toolbar-select {
   background: var(--bg-synth);
   border: 1px solid var(--border-light);
   color: #fff;
-  padding: 6px 12px;
-  border-radius: 6px;
-  font-size: 0.88rem;
+  height: 32px;
+  padding: 0 8px;
+  border-radius: 5px;
+  font-size: 0.82rem;
   outline: none;
+  font-family: var(--font-mono);
+  box-sizing: border-box;
+}
+
+/* Button tool - Fixed height for uniform consistency */
+.btn-tool {
+  background: var(--bg-card);
+  color: var(--text-primary);
+  border: 1px solid var(--border-light);
+  height: 32px;
+  padding: 0 11px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-weight: 600;
+  font-size: 0.8rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  text-decoration: none;
+  box-sizing: border-box;
+  flex-shrink: 0;
+  transition: all 0.15s ease;
+}
+
+.btn-tool:hover {
+  background: var(--bg-card-hover);
+  border-color: #4b5563;
+}
+
+.btn-save {
+  color: #34d399;
+  border-color: rgba(52, 211, 153, 0.4);
+}
+
+.btn-save:hover {
+  background: rgba(52, 211, 153, 0.15);
+}
+
+.btn-new {
+  color: #60a5fa;
+  border-color: rgba(96, 165, 250, 0.4);
+}
+
+.btn-new:hover {
+  background: rgba(96, 165, 250, 0.15);
+}
+
+.btn-delete {
+  color: #f87171;
+  border-color: rgba(248, 113, 113, 0.4);
+}
+
+.btn-delete:hover {
+  background: rgba(248, 113, 113, 0.15);
+}
+
+.btn-connect {
+  color: #38bdf8;
+  border-color: rgba(56, 189, 248, 0.4);
+  width: 135px;
+  height: 32px;
+  justify-content: center;
+  box-sizing: border-box;
+}
+
+.btn-follow-toggle {
+  width: 160px;
+  height: 32px;
+  justify-content: center;
+  box-sizing: border-box;
+  color: #4ade80;
+  border-color: rgba(74, 222, 128, 0.4);
+}
+
+.btn-sound-toggle {
+  width: 130px;
+  height: 32px;
+  justify-content: center;
+  box-sizing: border-box;
 }
 
 /* Push to MPK button (Akai Red) */
 .btn-push {
   background: var(--accent-akai);
   color: white;
-  font-weight: 700;
-  padding: 8px 18px;
-  border-radius: 6px;
-  border: 1px solid rgba(255, 255, 255, 0.2);
+  font-weight: 800;
+  font-size: 0.82rem;
+  height: 32px;
+  padding: 0 14px;
+  border-radius: 5px;
+  border: 1px solid rgba(255, 255, 255, 0.3);
   cursor: pointer;
   display: inline-flex;
   align-items: center;
-  gap: 8px;
+  justify-content: center;
+  gap: 6px;
+  box-sizing: border-box;
+  flex-shrink: 0;
   transition: all 0.15s ease;
-  box-shadow: 0 2px 8px rgba(225, 29, 72, 0.3);
+  box-shadow: 0 2px 8px rgba(225, 29, 72, 0.4);
 }
 
 .btn-push:hover {
   background: var(--accent-akai-hover);
   transform: translateY(-1px);
-  box-shadow: 0 4px 12px rgba(225, 29, 72, 0.45);
+  box-shadow: 0 4px 12px rgba(225, 29, 72, 0.6);
 }
+
+/* MIDI Status Pill */
+.midi-pill {
+  background: #0f172a;
+  border: 1px solid #334155;
+  border-radius: 5px;
+  padding: 0 10px;
+  height: 32px;
+  font-size: 0.78rem;
+  color: var(--text-secondary);
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  box-sizing: border-box;
+  pointer-events: none;
+}
+
+.fixed-midi-status {
+  width: 210px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  flex-shrink: 0;
+}
+
+.midi-activity-pill {
+  background: #0a101d;
+  border: 1px solid #1e293b;
+  border-radius: 5px;
+  padding: 0 10px;
+  height: 32px;
+  font-size: 0.76rem;
+  font-family: var(--font-mono);
+  color: #64748b;
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  box-sizing: border-box;
+  transition: all 0.12s ease;
+}
+
+.fixed-midi-activity {
+  width: 200px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  flex-shrink: 0;
+}
+
+.midi-activity-pill.flash-active {
+  background: #064e3b;
+  border-color: #10b981;
+  color: #34d399;
+  box-shadow: 0 0 12px rgba(16, 185, 129, 0.5);
+}
+
+.piano-key.selected {
+  box-shadow: 0 0 10px #38bdf8 !important;
+  border-color: #38bdf8 !important;
+}
+
+.piano-key.white-key.selected {
+  background: #bae6fd !important;
+}
+
+.piano-key.black-key.selected {
+  background: #0369a1 !important;
+}
+
+.activity-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #334155;
+  transition: background 0.1s ease;
+}
+
+.midi-activity-pill.flash-active .activity-dot {
+  background: #34d399;
+  box-shadow: 0 0 8px #34d399;
+}
+
+.led-red {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #ef4444;
+  box-shadow: 0 0 6px rgba(239, 68, 68, 0.7);
+}
+
+.led-green {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #22c55e;
+  box-shadow: 0 0 6px rgba(34, 197, 94, 0.7);
+}
+
+.led-orange {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #f59e0b;
+  box-shadow: 0 0 6px rgba(245, 158, 11, 0.7);
+}
+
+
 
 .btn-secondary {
   background: var(--bg-card);
