@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MPK-Revival | Akai MPK49 Studio & Preset Editor</title>
+  <link rel="stylesheet" href="css/main.css">
+  <link rel="stylesheet" href="css/hardware.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700;800&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+</head>
+<body>
+
+  <!-- Topbar -->
+  <header class="topbar">
+    <div class="brand">
+      <span class="brand-logo">AKAI</span>
+      <span class="brand-title">MPK-Revival <span>Studio</span></span>
+      <span class="brand-by">by <a href="https://github.com/carlomontec" target="_blank" rel="noopener noreferrer">@carlomontec</a></span>
+    </div>
+    <div class="top-actions">
+      <div id="midi-status-pill" class="btn-secondary" style="pointer-events: none; border-color: #334155;">
+        <span id="midi-led" style="width: 8px; height: 8px; border-radius: 50%; background: #ef4444; display: inline-block;"></span>
+        <span id="midi-status-text">Disconnected</span>
+      </div>
+      <button id="btn-connect-midi" class="btn-secondary">
+        🔌 Connect Web MIDI
+      </button>
+      <a href="https://github.com/carlomontec/mpk-revival" target="_blank" rel="noopener noreferrer" class="btn-secondary" style="text-decoration: none; color: inherit; display: inline-flex; align-items: center; gap: 6px;" title="View Source on GitHub">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
+        GitHub
+      </a>
+      <a href="poc/" class="btn-secondary" style="text-decoration: none; color: inherit;" title="Open raw low-level SysEx sniffer">
+        🛠️ SysEx Diagnostics
+      </a>
+    </div>
+  </header>
+
+  <!-- Studio Toolbar -->
+  <nav class="studio-toolbar">
+    <div class="preset-controls">
+      <button id="btn-new-preset" class="btn-secondary" style="border-color: #3b82f6; color: #60a5fa;">
+        ➕ New Preset
+      </button>
+
+      <div class="library-picker">
+        <label for="preset-template-select"><strong>Preset:</strong></label>
+        <select id="preset-template-select" class="toolbar-select">
+          <optgroup id="optgroup-user-presets" label="My Saved Presets">
+            <!-- Populated from localStorage -->
+          </optgroup>
+          <optgroup id="optgroup-factory-presets" label="Factory Templates">
+            <option value="factory:Reason 14 (Factory)">Reason 14 (Factory - Slot 03)</option>
+            <option value="factory:Ableton LiveLite">Ableton LiveLite (Slot 02)</option>
+            <option value="factory:Cubase">Cubase (Slot 04)</option>
+            <option value="factory:Arturia">Arturia (Slot 07)</option>
+            <option value="factory:GM Drums">GM Drums (Slot 16)</option>
+            <option value="factory:Generic Template">Generic Template (Slot 30)</option>
+          </optgroup>
+        </select>
+      </div>
+
+      <button id="btn-save-local" class="btn-secondary" style="color: #34d399; border-color: rgba(52, 211, 153, 0.4);" title="Save preset to browser local library">
+        💾 Save to Library
+      </button>
+      <button id="btn-delete-local" class="btn-secondary" style="color: #f87171; display: none;" title="Delete this saved preset">
+        🗑️ Delete
+      </button>
+
+      <div class="library-picker" style="margin-left: 10px;">
+        <label for="target-slot-select"><strong>Slot:</strong></label>
+        <select id="target-slot-select" class="toolbar-select">
+          <!-- Populated 1 to 30 -->
+        </select>
+      </div>
+
+      <input type="file" id="file-input-syx" accept=".syx,.json" style="display: none;">
+      <button id="btn-load-file" class="btn-secondary">
+        📂 Open File
+      </button>
+    </div>
+
+    <div class="preset-controls">
+      <button id="btn-export-syx" class="btn-secondary">
+        💾 Export .syx
+      </button>
+      <button id="btn-export-json" class="btn-secondary">
+        📄 Export .json
+      </button>
+      <button id="btn-push-mpk" class="btn-push">
+        ⚡️ Send to MPK49
+      </button>
+    </div>
+  </nav>
+
+  <!-- Main Hardware Canvas -->
+  <main class="studio-canvas">
+    <div class="hardware-chassis">
+
+      <!-- Backlit LCD Header -->
+      <section class="lcd-display-container">
+        <div class="lcd-screen">
+          <div class="lcd-line-1">
+            <span>AKAI MPK49 STUDIO</span>
+            <span id="lcd-clock">120 BPM &bull; INT</span>
+          </div>
+          <div class="lcd-line-2">
+            <span id="lcd-slot-num" class="lcd-slot">03:</span>
+            <input type="text" id="lcd-preset-name" class="lcd-name-input" maxlength="8" value="Reason">
+          </div>
+        </div>
+
+        <div style="display: flex; gap: 16px; align-items: center;">
+          <div style="font-size: 0.82rem; color: var(--text-secondary); text-align: right;">
+            <div>Click any Pad, Knob, or Slider to edit</div>
+            <div style="color: #38bdf8;">Real-time 1,033-byte memory sync</div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Main Hardware Grid -->
+      <div class="hardware-sections-grid">
+
+        <!-- Left: MPC Drum Pads -->
+        <section class="section-box">
+          <div class="section-box-header">
+            <h2>MPC Pads</h2>
+            <div class="bank-tabs">
+              <button class="bank-tab active" data-pad-bank="A">Bank A</button>
+              <button class="bank-tab" data-pad-bank="B">Bank B</button>
+              <button class="bank-tab" data-pad-bank="C">Bank C</button>
+              <button class="bank-tab" data-pad-bank="D">Bank D</button>
+            </div>
+          </div>
+
+          <!-- 12-Pad Grid (3 rows x 4 columns) -->
+          <div id="mpc-pads-container" class="mpc-pad-grid">
+            <!-- Dynamically rendered -->
+          </div>
+        </section>
+
+        <!-- Right: Continuous Controllers (Knobs, Faders, Switches) -->
+        <section class="section-box">
+          <div class="section-box-header">
+            <h2>Controllers</h2>
+            <div class="bank-tabs">
+              <button class="bank-tab active" data-ctrl-bank="A">Bank A</button>
+              <button class="bank-tab" data-ctrl-bank="B">Bank B</button>
+              <button class="bank-tab" data-ctrl-bank="C">Bank C</button>
+            </div>
+          </div>
+
+          <!-- Rotary Knobs Row -->
+          <div>
+            <div style="font-size: 0.75rem; color: var(--text-muted); text-transform: uppercase; margin-bottom: 4px;">Rotary Encoders (K1 – K8)</div>
+            <div id="knobs-container" class="knobs-row">
+              <!-- Dynamically rendered -->
+            </div>
+          </div>
+
+          <!-- Faders Row -->
+          <div style="margin-top: 10px;">
+            <div style="font-size: 0.75rem; color: var(--text-muted); text-transform: uppercase; margin-bottom: 4px;">Long-Throw Faders (S1 – S8)</div>
+            <div id="faders-container" class="faders-row">
+              <!-- Dynamically rendered -->
+            </div>
+          </div>
+
+          <!-- Switches Row -->
+          <div style="margin-top: 10px;">
+            <div style="font-size: 0.75rem; color: var(--text-muted); text-transform: uppercase; margin-bottom: 4px;">Assignable Switches (SW1 – SW8)</div>
+            <div id="switches-container" class="switches-row">
+              <!-- Dynamically rendered -->
+            </div>
+          </div>
+        </section>
+
+      </div>
+    </div>
+  </main>
+
+  <!-- Studio Footer -->
+  <footer class="studio-footer">
+    <div class="footer-content">
+      <span>Akai MPK49 Revival Studio &bull; Open-source preset editor & librarian</span>
+      <span>Made with 🎹 by <a href="https://github.com/carlomontec" target="_blank" rel="noopener noreferrer">@carlomontec</a> &bull; <a href="https://github.com/carlomontec/mpk-revival" target="_blank" rel="noopener noreferrer">GitHub Project</a></span>
+    </div>
+  </footer>
+
+  <!-- Edit Modal -->
+  <div id="edit-modal" class="modal-overlay hidden">
+    <div class="modal-card">
+      <div class="modal-header">
+        <h3 id="modal-title">Edit Parameter</h3>
+        <button id="btn-modal-close" class="btn-close">&times;</button>
+      </div>
+      <div id="modal-body">
+        <!-- Injected dynamically based on item type -->
+      </div>
+      <div class="modal-actions">
+        <button id="btn-modal-cancel" class="btn-secondary">Cancel</button>
+        <button id="btn-modal-save" class="btn-push" style="padding: 6px 14px; font-size: 0.85rem;">Save Parameter</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- New Preset Modal -->
+  <div id="new-preset-modal" class="modal-overlay hidden">
+    <div class="modal-card">
+      <div class="modal-header">
+        <h3>Create New Preset</h3>
+        <button id="btn-new-modal-close" class="btn-close">&times;</button>
+      </div>
+      <div class="modal-body" style="display: flex; flex-direction: column; gap: 14px;">
+        <div class="form-group">
+          <label>Preset Name (max 8 characters):</label>
+          <input type="text" id="new-preset-name" maxlength="8" placeholder="MyPreset" value="MyPreset">
+        </div>
+        <div class="form-group">
+          <label>Target Hardware Slot (1 to 30):</label>
+          <select id="new-preset-slot" class="toolbar-select" style="width: 100%;">
+            <!-- 1 to 30 -->
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Starting Template:</label>
+          <select id="new-preset-template" class="toolbar-select" style="width: 100%;">
+            <option value="Reason 14 (Factory)">Based on Reason 14</option>
+            <option value="Ableton LiveLite">Based on Ableton LiveLite</option>
+            <option value="Generic Template">Clean / Generic Template</option>
+          </select>
+        </div>
+      </div>
+      <div class="modal-actions">
+        <button id="btn-new-modal-cancel" class="btn-secondary">Cancel</button>
+        <button id="btn-new-modal-create" class="btn-push" style="padding: 6px 14px; font-size: 0.85rem;">Create & Edit</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Toast Notification -->
+  <div id="toast" class="toast"></div>
+
+  <!-- Scripts -->
+  <script src="js/sysex_schema.js"></script>
+  <script src="js/factory_data.js"></script>
+  <script src="js/midi_engine.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>

@@ -1,0 +1,331 @@
+:root {
+  --bg-synth: #12141a;
+  --bg-panel: #1a1d26;
+  --bg-card: #222634;
+  --bg-card-hover: #2a3042;
+  --border-panel: #2f364a;
+  --border-light: #3e4760;
+
+  --accent-akai: #e11d48;
+  --accent-akai-hover: #be123c;
+  --accent-blue: #3b82f6;
+  --accent-amber: #f59e0b;
+  --accent-green: #10b981;
+
+  --lcd-bg: #0b1a24;
+  --lcd-text: #38bdf8;
+  --lcd-glow: rgba(56, 189, 248, 0.25);
+
+  --text-primary: #f1f5f9;
+  --text-secondary: #94a3b8;
+  --text-muted: #64748b;
+
+  --font-mono: 'JetBrains Mono', monospace;
+  --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background-color: var(--bg-synth);
+  color: var(--text-primary);
+  font-family: var(--font-sans);
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Header & Top Bar */
+.topbar {
+  background: var(--bg-panel);
+  border-bottom: 1px solid var(--border-panel);
+  padding: 12px 24px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: sticky;
+  top: 0;
+  z-index: 50;
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.brand-logo {
+  background: var(--accent-akai);
+  color: white;
+  font-weight: 900;
+  font-size: 0.9rem;
+  padding: 4px 8px;
+  border-radius: 4px;
+  letter-spacing: 0.08em;
+}
+
+.brand-title {
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: #fff;
+}
+
+.brand-title span {
+  color: var(--text-secondary);
+  font-weight: 400;
+}
+
+.top-actions {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+/* Studio Toolbar */
+.studio-toolbar {
+  background: var(--bg-panel);
+  border-bottom: 1px solid var(--border-panel);
+  padding: 12px 24px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 14px;
+}
+
+.preset-controls {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.library-picker {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+}
+
+select.toolbar-select {
+  background: var(--bg-synth);
+  border: 1px solid var(--border-light);
+  color: #fff;
+  padding: 6px 12px;
+  border-radius: 6px;
+  font-size: 0.88rem;
+  outline: none;
+}
+
+/* Push to MPK button (Akai Red) */
+.btn-push {
+  background: var(--accent-akai);
+  color: white;
+  font-weight: 700;
+  padding: 8px 18px;
+  border-radius: 6px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  transition: all 0.15s ease;
+  box-shadow: 0 2px 8px rgba(225, 29, 72, 0.3);
+}
+
+.btn-push:hover {
+  background: var(--accent-akai-hover);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(225, 29, 72, 0.45);
+}
+
+.btn-secondary {
+  background: var(--bg-card);
+  color: var(--text-primary);
+  border: 1px solid var(--border-light);
+  padding: 8px 14px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: 600;
+  font-size: 0.85rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  transition: background 0.15s ease;
+}
+
+.btn-secondary:hover {
+  background: var(--bg-card-hover);
+}
+
+/* Main Studio Layout */
+.studio-canvas {
+  flex: 1;
+  max-width: 1400px;
+  width: 100%;
+  margin: 0 auto;
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+/* Modal */
+.modal-overlay {
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: rgba(0, 0, 0, 0.75);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 100;
+  backdrop-filter: blur(4px);
+}
+
+.modal-overlay.hidden {
+  display: none;
+}
+
+.modal-card {
+  background: var(--bg-panel);
+  border: 1px solid var(--border-light);
+  border-radius: 10px;
+  width: 90%;
+  max-width: 440px;
+  padding: 20px;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid var(--border-panel);
+  padding-bottom: 10px;
+}
+
+.modal-header h3 {
+  font-size: 1.1rem;
+  color: #fff;
+}
+
+.btn-close {
+  background: transparent;
+  border: none;
+  color: var(--text-muted);
+  font-size: 1.2rem;
+  cursor: pointer;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.form-group label {
+  font-size: 0.8rem;
+  color: var(--text-secondary);
+}
+
+.form-group input, .form-group select {
+  background: var(--bg-synth);
+  border: 1px solid var(--border-panel);
+  color: #fff;
+  padding: 8px 12px;
+  border-radius: 6px;
+  font-size: 0.9rem;
+}
+
+.modal-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+/* Toast notification */
+.toast {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  background: var(--bg-card);
+  border: 1px solid var(--border-light);
+  padding: 12px 20px;
+  border-radius: 8px;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.4);
+  font-size: 0.88rem;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  z-index: 200;
+  transform: translateY(100px);
+  opacity: 0;
+  transition: all 0.25s ease;
+}
+
+.toast.show {
+  transform: translateY(0);
+  opacity: 1;
+}
+
+.toast.success { border-left: 4px solid var(--accent-green); }
+.toast.error { border-left: 4px solid var(--accent-akai); }
+.toast.info { border-left: 4px solid var(--accent-blue); }
+
+/* Brand by credit */
+.brand-by {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  margin-left: 4px;
+}
+
+.brand-by a {
+  color: var(--text-secondary);
+  text-decoration: none;
+  font-weight: 500;
+  transition: color 0.15s;
+}
+
+.brand-by a:hover {
+  color: #38bdf8;
+  text-decoration: underline;
+}
+
+/* Studio Footer */
+.studio-footer {
+  margin-top: auto;
+  border-top: 1px solid var(--border-panel);
+  background: var(--bg-panel);
+  padding: 16px 24px;
+  font-size: 0.8rem;
+  color: var(--text-muted);
+}
+
+.footer-content {
+  max-width: 1380px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.footer-content a {
+  color: var(--text-secondary);
+  text-decoration: none;
+  transition: color 0.15s;
+}
+
+.footer-content a:hover {
+  color: #38bdf8;
+  text-decoration: underline;
+}

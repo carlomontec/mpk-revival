@@ -1,0 +1,400 @@
+/**
+ * MPK-Revival | Hardware Component Styling
+ * Skeuomorphic MPC pads, sliders, knobs, LCD, and banks
+ */
+
+.hardware-chassis {
+  background: #181b24;
+  border: 2px solid #282e3f;
+  border-radius: 12px;
+  padding: 24px;
+  box-shadow: 0 12px 36px rgba(0, 0, 0, 0.6), inset 0 1px 0 rgba(255, 255, 255, 0.05);
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+/* Backlit LCD Screen */
+.lcd-display-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #11131a;
+  border: 2px solid #232838;
+  border-radius: 8px;
+  padding: 16px 20px;
+}
+
+.lcd-screen {
+  background-color: var(--lcd-bg);
+  border: 2px solid #1e3a4d;
+  box-shadow: inset 0 0 16px rgba(0, 0, 0, 0.8), 0 0 12px var(--lcd-glow);
+  padding: 12px 18px;
+  border-radius: 6px;
+  min-width: 280px;
+  font-family: var(--font-mono);
+}
+
+.lcd-line-1 {
+  font-size: 0.75rem;
+  color: #7dd3fc;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  display: flex;
+  justify-content: space-between;
+}
+
+.lcd-line-2 {
+  display: flex;
+  align-items: baseline;
+  gap: 12px;
+  margin-top: 4px;
+}
+
+.lcd-slot {
+  color: #38bdf8;
+  font-size: 1.1rem;
+  font-weight: 700;
+}
+
+.lcd-name-input {
+  background: transparent;
+  border: 1px dashed rgba(56, 189, 248, 0.4);
+  color: #fff;
+  font-family: var(--font-mono);
+  font-size: 1.25rem;
+  font-weight: 700;
+  width: 140px;
+  padding: 2px 6px;
+  outline: none;
+  text-transform: none;
+}
+
+.lcd-name-input:focus {
+  border-color: #38bdf8;
+  background: rgba(56, 189, 248, 0.1);
+}
+
+/* Main Hardware Sections Grid */
+.hardware-sections-grid {
+  display: grid;
+  grid-template-columns: 360px 1fr;
+  gap: 24px;
+}
+
+/* Section Containers */
+.section-box {
+  background: #1e222e;
+  border: 1px solid #2f364a;
+  border-radius: 8px;
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.section-box-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid #2c3345;
+  padding-bottom: 8px;
+}
+
+.section-box-header h2 {
+  font-size: 0.92rem;
+  font-weight: 700;
+  color: #cbd5e1;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+/* Bank Selectors (A, B, C, D) */
+.bank-tabs {
+  display: flex;
+  gap: 4px;
+  background: #14161f;
+  padding: 3px;
+  border-radius: 6px;
+}
+
+.bank-tab {
+  background: transparent;
+  border: none;
+  color: var(--text-muted);
+  font-size: 0.75rem;
+  font-weight: 700;
+  padding: 4px 10px;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.bank-tab.active {
+  background: #2b3244;
+  color: #fff;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.3);
+}
+
+.bank-tab:hover:not(.active) {
+  color: #e2e8f0;
+}
+
+/* MPC 12-Pad Grid (4 rows x 3 columns or 3 rows x 4 columns) */
+/* MPK49 physical has 4 rows of 3 pads = 12 pads */
+.mpc-pad-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 12px;
+  padding: 8px 0;
+}
+
+.mpc-pad {
+  aspect-ratio: 1 / 1;
+  background: linear-gradient(145deg, #2d3240, #1f232d);
+  border: 2px solid #3c4458;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4), inset 0 1px 1px rgba(255, 255, 255, 0.1);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 8px;
+  cursor: pointer;
+  user-select: none;
+  transition: all 0.1s ease;
+  position: relative;
+}
+
+.mpc-pad:hover {
+  border-color: #60a5fa;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.5);
+}
+
+.mpc-pad.active, .mpc-pad:active {
+  background: linear-gradient(145deg, #e11d48, #be123c);
+  border-color: #f43f5e;
+  box-shadow: 0 0 16px rgba(225, 29, 72, 0.6);
+  transform: scale(0.96);
+}
+
+.pad-num {
+  font-size: 0.68rem;
+  font-weight: 700;
+  color: #94a3b8;
+}
+
+.pad-note {
+  font-family: var(--font-mono);
+  font-size: 1.15rem;
+  font-weight: 800;
+  color: #fff;
+  text-align: center;
+}
+
+.pad-meta {
+  font-size: 0.65rem;
+  color: #94a3b8;
+  text-align: right;
+}
+
+/* Faders Row (S1 - S8) */
+.faders-row {
+  display: grid;
+  grid-template-columns: repeat(8, 1fr);
+  gap: 12px;
+  padding: 10px 0;
+}
+
+.fader-channel {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+}
+
+.fader-track-container {
+  height: 180px;
+  width: 28px;
+  background: #11131a;
+  border: 1px solid #2a3040;
+  border-radius: 4px;
+  position: relative;
+  display: flex;
+  justify-content: center;
+}
+
+.fader-slot {
+  width: 4px;
+  height: 100%;
+  background: #000;
+}
+
+.fader-cap {
+  position: absolute;
+  bottom: 50%;
+  left: 50%;
+  transform: translate(-50%, 50%);
+  width: 24px;
+  height: 38px;
+  background: linear-gradient(180deg, #64748b 0%, #334155 50%, #1e293b 100%);
+  border: 1px solid #94a3b8;
+  border-radius: 3px;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.5);
+  cursor: ns-resize;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.fader-cap-line {
+  width: 16px;
+  height: 2px;
+  background: #fff;
+}
+
+.fader-label {
+  font-size: 0.72rem;
+  font-weight: 700;
+  color: var(--text-secondary);
+}
+
+.fader-cc-badge {
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  background: #11131a;
+  padding: 2px 6px;
+  border-radius: 4px;
+  border: 1px solid #282f42;
+  color: #38bdf8;
+  cursor: pointer;
+}
+
+.fader-cc-badge:hover {
+  border-color: #38bdf8;
+}
+
+/* Knobs Row (K1 - K8) */
+.knobs-row {
+  display: grid;
+  grid-template-columns: repeat(8, 1fr);
+  gap: 12px;
+  padding: 10px 0;
+}
+
+.knob-channel {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+}
+
+.knob-dial {
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  background: radial-gradient(circle, #2d3345 30%, #161822 100%);
+  border: 2px solid #434c64;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.5);
+  position: relative;
+  cursor: pointer;
+  transition: border-color 0.15s ease;
+}
+
+.knob-dial:hover {
+  border-color: #38bdf8;
+}
+
+.knob-indicator {
+  position: absolute;
+  top: 6px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 3px;
+  height: 12px;
+  background: #38bdf8;
+  border-radius: 2px;
+  box-shadow: 0 0 6px #38bdf8;
+}
+
+.knob-label {
+  font-size: 0.72rem;
+  font-weight: 700;
+  color: var(--text-secondary);
+}
+
+.knob-cc-badge {
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  background: #11131a;
+  padding: 2px 6px;
+  border-radius: 4px;
+  border: 1px solid #282f42;
+  color: #f59e0b;
+  cursor: pointer;
+}
+
+.knob-cc-badge:hover {
+  border-color: #f59e0b;
+}
+
+/* Switches Row (SW1 - SW8) */
+.switches-row {
+  display: grid;
+  grid-template-columns: repeat(8, 1fr);
+  gap: 12px;
+  padding: 6px 0;
+}
+
+.switch-channel {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+}
+
+.hw-switch {
+  width: 36px;
+  height: 22px;
+  background: #252a3a;
+  border: 1px solid #434c64;
+  border-radius: 4px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.hw-switch:hover {
+  border-color: #38bdf8;
+}
+
+.switch-led {
+  width: 8px;
+  height: 4px;
+  background: #334155;
+  border-radius: 2px;
+}
+
+.hw-switch.active .switch-led {
+  background: var(--accent-amber);
+  box-shadow: 0 0 8px var(--accent-amber);
+}
+
+.switch-cc-badge {
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  background: #11131a;
+  padding: 2px 4px;
+  border-radius: 4px;
+  border: 1px solid #282f42;
+  color: #94a3b8;
+  cursor: pointer;
+}
+
+@media (max-width: 1100px) {
+  .hardware-sections-grid {
+    grid-template-columns: 1fr;
+  }
+}
