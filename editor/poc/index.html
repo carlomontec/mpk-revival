@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MPK-Revival | Diagnostic & SysEx Capture Bench</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+  <div class="app-container">
+    <header class="header">
+      <div class="logo-area">
+        <div class="badge">POC Phase 1</div>
+        <h1>MPK-Revival <span>Diagnostic Bench</span></h1>
+      </div>
+      <div class="status-area">
+        <div id="midi-status-indicator" class="status-indicator disconnected"></div>
+        <span id="midi-status-text">Web MIDI Not Initialized</span>
+      </div>
+    </header>
+
+    <main class="main-grid">
+      <!-- Left Column: Controls & Ports -->
+      <section class="card port-card">
+        <h2>1. Hardware Discovery</h2>
+        <p class="section-desc">Connect your Akai MPK49 via USB and enable Web MIDI permissions.</p>
+
+        <div class="action-row">
+          <button id="btn-init-midi" class="btn btn-primary">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+            Connect Web MIDI
+          </button>
+          <button id="btn-rescan-midi" class="btn btn-secondary" disabled>Rescan Ports</button>
+        </div>
+
+        <div class="port-selectors">
+          <div class="field-group">
+            <label for="midi-input-select">MIDI Input Port (Listening for SysEx)</label>
+            <select id="midi-input-select" disabled>
+              <option value="">No MIDI inputs found</option>
+            </select>
+          </div>
+
+          <div class="field-group">
+            <label for="midi-output-select">MIDI Output Port</label>
+            <select id="midi-output-select" disabled>
+              <option value="">No MIDI outputs found</option>
+            </select>
+          </div>
+        </div>
+
+        <div id="device-info" class="device-info-box hidden">
+          <h3>Detected Device</h3>
+          <div class="info-row"><span>Name:</span> <strong id="dev-name">-</strong></div>
+          <div class="info-row"><span>Manufacturer:</span> <strong id="dev-manuf">-</strong></div>
+          <div class="info-row"><span>SysEx Capable:</span> <strong id="dev-sysex" class="text-success">Yes (Enabled)</strong></div>
+        </div>
+      </section>
+
+      <!-- Center Column: Capture Instructions & Backup -->
+      <section class="card capture-card">
+        <h2>2. SysEx Dump & Backup</h2>
+        <p class="section-desc">Read presets directly from the physical MPK49 memory safely without writing.</p>
+
+        <div class="instructions-box">
+          <h4>Hardware Dump Instructions:</h4>
+          <ol>
+            <li>On the MPK49, press the <strong>[GLOBAL]</strong> button.</li>
+            <li>Press the <strong>[&gt;]</strong> button repeatedly until you reach <strong>Page 10: SYSEX TX</strong>.</li>
+            <li>Use the rotary value dial to select the preset you want to dump (e.g. Preset 1, Preset 2, or All).</li>
+            <li>Press the <strong>[ENTER]</strong> button (rotary knob click) on the MPK49.</li>
+          </ol>
+        </div>
+
+        <div class="capture-stats">
+          <div class="stat-item">
+            <span class="stat-label">Packets Captured</span>
+            <span id="stat-packets" class="stat-value">0</span>
+          </div>
+          <div class="stat-item">
+            <span class="stat-label">Last Message Size</span>
+            <span id="stat-bytes" class="stat-value">0 bytes</span>
+          </div>
+          <div class="stat-item">
+            <span class="stat-label">Akai ID Validated</span>
+            <span id="stat-akai-valid" class="stat-value text-muted">-</span>
+          </div>
+        </div>
+
+        <div class="backup-actions">
+          <button id="btn-download-syx" class="btn btn-accent" disabled>
+            💾 Save Raw Dump (.syx)
+          </button>
+          <button id="btn-download-json" class="btn btn-secondary" disabled>
+            📄 Save Structured JSON
+          </button>
+          <button id="btn-clear-log" class="btn btn-outline">
+            Clear Logs
+          </button>
+        </div>
+      </section>
+
+      <!-- Right/Bottom: Real-time SysEx Byte Inspector -->
+      <section class="card inspector-card full-width">
+        <div class="inspector-header">
+          <h2>3. Live SysEx Byte Inspector</h2>
+          <div class="view-toggles">
+            <span id="inspector-summary" class="inspector-summary">Waiting for SysEx transmission...</span>
+          </div>
+        </div>
+
+        <div class="inspector-content">
+          <div class="hex-viewer-container">
+            <div class="hex-header">
+              <span class="hex-col-offset">OFFSET</span>
+              <span class="hex-col-bytes">HEX BYTES (00 - 0F)</span>
+              <span class="hex-col-ascii">ASCII</span>
+            </div>
+            <pre id="hex-display" class="hex-body">-- No SysEx received yet. Trigger SYSEX TX on your MPK49 --</pre>
+          </div>
+        </div>
+
+        <div class="log-container">
+          <h3>Event Log</h3>
+          <div id="event-log" class="event-log-list"></div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="footer">
+      <span>MPK-Revival Engineering POC &bull; Non-destructive hardware diagnostic</span>
+      <span class="safe-badge">SAFE MODE: WRITE-BACK DISABLED</span>
+    </footer>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
