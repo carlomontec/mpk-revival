@@ -69,7 +69,7 @@
           <h4>Hardware Dump Instructions:</h4>
           <ol>
             <li>On the MPK49, press the <strong>[GLOBAL]</strong> button.</li>
-            <li>Press the <strong>[&gt;]</strong> button repeatedly until you reach <strong>Page 10: SYSEX TX</strong>.</li>
+            <li>Press the <strong>[&gt;]</strong> button repeatedly until you reach <strong>Page 11 (or 10): SYSEX TX</strong>.</li>
             <li>Use the rotary value dial to select the preset you want to dump (e.g. Preset 1, Preset 2, or All).</li>
             <li>Press the <strong>[ENTER]</strong> button (rotary knob click) on the MPK49.</li>
           </ol>
@@ -90,6 +90,11 @@
           </div>
         </div>
 
+        <div class="auto-save-row" style="display: flex; align-items: center; gap: 8px; font-size: 0.88rem; color: #60a5fa; margin: 6px 0;">
+          <input type="checkbox" id="chk-auto-save" checked style="accent-color: #3b82f6; width: 16px; height: 16px;">
+          <label for="chk-auto-save" style="cursor: pointer;"><strong>Auto-Save Incoming Dumps</strong> as <code>slot&lt;NN&gt;_&lt;PRESET&gt;_YYYY-MM-DD_HH-mm-ss.syx</code></label>
+        </div>
+
         <div class="backup-actions">
           <button id="btn-download-syx" class="btn btn-accent" disabled>
             💾 Save Raw Dump (.syx)
@@ -97,16 +102,43 @@
           <button id="btn-download-json" class="btn btn-secondary" disabled>
             📄 Save Structured JSON
           </button>
+          <button id="btn-request-dump" class="btn btn-secondary" title="Send SysEx request to MPK49 output port">
+            📡 Send Software Dump Request
+          </button>
           <button id="btn-clear-log" class="btn btn-outline">
             Clear Logs
           </button>
         </div>
       </section>
 
+      <!-- Section 3: Controlled Write Test -->
+      <section class="card write-card full-width" style="border: 1px solid rgba(245, 158, 11, 0.4); background: rgba(24, 27, 36, 0.95);">
+        <div style="display: flex; justify-content: space-between; align-items: center;">
+          <h2 style="color: #fbbf24;">3. Surgical Write Verification (Slot 30 Only)</h2>
+          <span style="font-size: 0.75rem; background: rgba(245, 158, 11, 0.15); color: #fbbf24; padding: 2px 8px; border-radius: 4px; border: 1px solid rgba(245, 158, 11, 0.3);">SAFE TEST SANDBOX</span>
+        </div>
+        <p class="section-desc">Test writing strictly to unused Preset Slot 30. We modify <strong>only</strong> the 8-character name to <code>TESTREV </code> while leaving all other 1,025 parameter bytes 100% factory-identical.</p>
+
+        <div style="display: flex; gap: 12px; flex-wrap: wrap; align-items: center;">
+          <button id="btn-write-testrev" class="btn btn-primary" style="background-color: #d97706;">
+            ⚡️ Send "TESTREV" to Slot 30
+          </button>
+          <button id="btn-restore-slot30" class="btn btn-secondary">
+            🔄 Restore Slot 30 Factory Backup
+          </button>
+          <div style="display: flex; align-items: center; gap: 8px; margin-left: auto;">
+            <input type="file" id="file-upload-syx" accept=".syx" style="display: none;">
+            <button id="btn-browse-syx" class="btn btn-outline" style="font-size: 0.82rem;">
+              📁 Send Custom .syx File to Hardware...
+            </button>
+          </div>
+        </div>
+      </section>
+
       <!-- Right/Bottom: Real-time SysEx Byte Inspector -->
       <section class="card inspector-card full-width">
         <div class="inspector-header">
-          <h2>3. Live SysEx Byte Inspector</h2>
+          <h2>4. Live SysEx Byte Inspector</h2>
           <div class="view-toggles">
             <span id="inspector-summary" class="inspector-summary">Waiting for SysEx transmission...</span>
           </div>
