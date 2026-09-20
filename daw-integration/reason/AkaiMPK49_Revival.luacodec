@@ -1,0 +1,29 @@
+version={1,0,0}
+
+-- Descriptor for the AkaiMPK49_Revival.lua codec.
+-- Reason 14 reads this file to discover the control surface.
+--
+-- Installation:
+--   Copy this file AND AkaiMPK49_Revival.lua to:
+--   ~/Library/Application Support/Propellerhead Software/Remote/Codecs/Lua Codecs/Akai/
+--
+-- In Reason 14:
+--   Preferences → Control Surfaces → Add Surface
+--   Manufacturer: Akai  |  Model: MPK49 Revival
+--   Input: Akai MPK49 Port 1  |  Output: Akai MPK49 Port 1
+
+function remote_supported_control_surfaces()
+	local surfaces = {
+		{
+			manufacturer    = "Akai",
+			model           = "MPK49 Revival",
+			source          = "AkaiMPK49_Revival.lua",
+			picture         = "MPK49_reason.png",
+			in_ports        = {{ description="In Port" }},
+			out_ports       = {{ description="Out Port", optional=true }},
+			has_keyboard    = true,
+			setup_info_text = "Load presets/reason14_rack.syx onto the MPK49 (Slot 03) before using this surface.",
+		},
+	}
+	return surfaces
+end

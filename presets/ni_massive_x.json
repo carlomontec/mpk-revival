@@ -1,0 +1,62 @@
+{
+  "name": "MassiveX",
+  "slot": 4,
+  "description": "NI Massive X — K1-K8: Macro 1-8 (assign in Massive X MIDI learn: CC22-CC29). F1-F8: Performance Faders (CC12-CC19, assign freely). S1-S4: Performance Buttons (toggle, CC32-35). S5-S8: Momentary triggers (CC36-39). Pads: C2-B2 chromatic for note input.",
+  "global": {
+    "keybedChannel": "1A",
+    "tempo": 120,
+    "transportMode": "MIDI CC"
+  },
+  "knobs": {
+    "A": [
+      { "index": 1, "name": "Macro 1", "cc": 22, "channel": "1A", "min": 0, "max": 127 },
+      { "index": 2, "name": "Macro 2", "cc": 23, "channel": "1A", "min": 0, "max": 127 },
+      { "index": 3, "name": "Macro 3", "cc": 24, "channel": "1A", "min": 0, "max": 127 },
+      { "index": 4, "name": "Macro 4", "cc": 25, "channel": "1A", "min": 0, "max": 127 },
+      { "index": 5, "name": "Macro 5", "cc": 26, "channel": "1A", "min": 0, "max": 127 },
+      { "index": 6, "name": "Macro 6", "cc": 27, "channel": "1A", "min": 0, "max": 127 },
+      { "index": 7, "name": "Macro 7", "cc": 28, "channel": "1A", "min": 0, "max": 127 },
+      { "index": 8, "name": "Macro 8", "cc": 29, "channel": "1A", "min": 0, "max": 127 }
+    ]
+  },
+  "faders": {
+    "A": [
+      { "index": 1, "name": "Perf Fdr 1", "cc": 12, "channel": "1A", "min": 0, "max": 127 },
+      { "index": 2, "name": "Perf Fdr 2", "cc": 13, "channel": "1A", "min": 0, "max": 127 },
+      { "index": 3, "name": "Perf Fdr 3", "cc": 14, "channel": "1A", "min": 0, "max": 127 },
+      { "index": 4, "name": "Perf Fdr 4", "cc": 15, "channel": "1A", "min": 0, "max": 127 },
+      { "index": 5, "name": "Perf Fdr 5", "cc": 16, "channel": "1A", "min": 0, "max": 127 },
+      { "index": 6, "name": "Perf Fdr 6", "cc": 17, "channel": "1A", "min": 0, "max": 127 },
+      { "index": 7, "name": "Perf Fdr 7", "cc": 18, "channel": "1A", "min": 0, "max": 127 },
+      { "index": 8, "name": "Perf Fdr 8", "cc": 19, "channel": "1A", "min": 0, "max": 127 }
+    ]
+  },
+  "switches": {
+    "A": [
+      { "index": 1, "name": "Perf Btn 1", "cc": 32, "channel": "1A", "mode": "Toggle"    },
+      { "index": 2, "name": "Perf Btn 2", "cc": 33, "channel": "1A", "mode": "Toggle"    },
+      { "index": 3, "name": "Perf Btn 3", "cc": 34, "channel": "1A", "mode": "Toggle"    },
+      { "index": 4, "name": "Perf Btn 4", "cc": 35, "channel": "1A", "mode": "Toggle"    },
+      { "index": 5, "name": "Trigger 1",  "cc": 36, "channel": "1A", "mode": "Momentary" },
+      { "index": 6, "name": "Trigger 2",  "cc": 37, "channel": "1A", "mode": "Momentary" },
+      { "index": 7, "name": "Trigger 3",  "cc": 38, "channel": "1A", "mode": "Momentary" },
+      { "index": 8, "name": "Trigger 4",  "cc": 39, "channel": "1A", "mode": "Momentary" }
+    ]
+  },
+  "pads": {
+    "A": [
+      { "index": 1,  "name": "Note C2",  "note": "C2",  "channel": "1A" },
+      { "index": 2,  "name": "Note C#2", "note": "C#2", "channel": "1A" },
+      { "index": 3,  "name": "Note D2",  "note": "D2",  "channel": "1A" },
+      { "index": 4,  "name": "Note D#2", "note": "D#2", "channel": "1A" },
+      { "index": 5,  "name": "Note E2",  "note": "E2",  "channel": "1A" },
+      { "index": 6,  "name": "Note F2",  "note": "F2",  "channel": "1A" },
+      { "index": 7,  "name": "Note F#2", "note": "F#2", "channel": "1A" },
+      { "index": 8,  "name": "Note G2",  "note": "G2",  "channel": "1A" },
+      { "index": 9,  "name": "Note G#2", "note": "G#2", "channel": "1A" },
+      { "index": 10, "name": "Note A2",  "note": "A2",  "channel": "1A" },
+      { "index": 11, "name": "Note A#2", "note": "A#2", "channel": "1A" },
+      { "index": 12, "name": "Note B2",  "note": "B2",  "channel": "1A" }
+    ]
+  }
+}
