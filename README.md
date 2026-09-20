@@ -34,6 +34,7 @@ Open **[http://localhost:8080](http://localhost:8080)**, connect the MPK49 via U
 ## What It Does
 
 - **Web MIDI Studio** — Visual editor for all 30 preset slots. Live hardware sensing: touch a knob, fader, or pad and the UI highlights it instantly.
+- **DAW Super-Integrations** — First-class scripts and codecs for **Ableton Live 12** and **Reason 14**, unlocking full 3-bank console mixing, device macro tracking, and modern rack mappings.
 - **SysEx Librarian** — Read, edit, and write presets directly to/from keyboard memory.
 - **Open Hardware Spec** — Full reverse-engineered 1,033-byte memory map: [`docs/AKAI_MPK49_SYSEX_SPECIFICATION.md`](docs/AKAI_MPK49_SYSEX_SPECIFICATION.md)
 - **AI Preset Architect** — Semantic JSON presets that compile to verified `.syx` files via `tools/compile_preset.js`.
@@ -57,6 +58,52 @@ Open **[http://localhost:8080](http://localhost:8080)**, connect the MPK49 via U
 
 ---
 
+## 🎛️ DAW Super-Integrations
+
+MPK-Revival includes deep, first-class controller scripts that revitalize the MPK49 for modern production setups in **Ableton Live 12** and **Reason 14**.
+
+### One-Step Installation
+```bash
+./daw-integration/install.sh
+```
+*(Installs to your local User Library folders—no root/sudo permissions needed!)*
+
+---
+
+### 1. Ableton Live 12 (`MPK49_Revival`)
+* **Dynamic 8-Track Mixing**: 8 Faders follow the session ring with automatic banking.
+* **Auto-Focus Device Macros**: Knobs (Bank A) lock to whatever device is selected in Live, instantly mapping macros 1–8.
+* **Stereo & Aux Sends**: Bank B controls track Pans; Bank C controls Aux Send levels.
+* **Switches**: Toggle Track Mute (Bank A) and Track Solo (Bank B/C).
+* **4-Bank MPC Drum Racks**: Pads A through D map across 4 contiguous octaves (C1–B4), instantly playing full 16-pad Drum Racks without transpose fumbling.
+* **MMC Transport**: Dedicated Play, Stop, Record, Rewind, Fast-Forward.
+* **Hardware Slot**: Preset **Slot 02** (`Ableton12`).
+
+---
+
+### 2. Reason 14 (`MPK49 Revival`)
+* **Dedicated SSL 9000k Console Surface**: Complete 3-bank hardware mixing desk with custom modern 96×96 MPK49 icon.
+  * **Bank A (Levels & Master Bus Compressor)**:
+    * Faders 1–8 $\rightarrow$ Channel Volume Levels 1–8
+    * Knobs 1–5 $\rightarrow$ Master Bus Compressor (`Threshold`, `Ratio`, `Attack`, `Release`, `Make-Up Gain`)
+    * Knobs 6–8 $\rightarrow$ Free for per-project user overrides
+    * Switches 1–8 $\rightarrow$ Channel EQ On/Bypass
+  * **Bank B (Pans & Reverb Sends)**:
+    * Faders 1–8 $\rightarrow$ FX1 Send Level (Reverb)
+    * Knobs 1–8 $\rightarrow$ Channel Pan (Left $\leftrightarrow$ Right)
+    * Switches 1–8 $\rightarrow$ Channel Mutes
+  * **Bank C (Delays & Master FX Returns)**:
+    * Faders 1–8 $\rightarrow$ FX2 Send Level (Delay)
+    * Knobs 1–8 $\rightarrow$ **FX1–FX8 Return Levels** (direct control over all 8 master return buses!)
+    * Switches 1–8 $\rightarrow$ Channel Solos
+* **Channel Banking**: `<<` (Rewind) and `>>` (Fast-Forward) bank 8 mixer channels at a time across your entire SSL desk.
+* **Automatic Rack Instrument Focus**: Select any instrument in the rack to automatically map filters, envelopes, and macros for **Europa**, **Grain**, **Mimic**, **Monotone**, **Complex-1**, **Klang**, **Radical Piano**, **Kong**, **Redrum**, **NN-XT**, **Thor**, **SubTractor**, and **Combinator**.
+* **Hardware Slot**: Preset **Slot 30** (`Reason14`).
+
+👉 Full reference guide and surface locking instructions: [`docs/DAW_INTEGRATION_GUIDE.md`](docs/DAW_INTEGRATION_GUIDE.md)
+
+---
+
 ## Repository Structure
 
 ```
@@ -69,13 +116,18 @@ mpk-revival/
 │       ├── sysex_schema.js  # 1,033-byte encoder/decoder + fromJSON/toSemanticJSON
 │       ├── midi_engine.js   # Web MIDI API driver
 │       └── factory_data.js  # All 30 factory presets (base64 ROM dumps)
+├── daw-integration/         # Modern DAW Scripts & Codecs
+│   ├── install.sh           # Master user-library installer
+│   ├── ableton/             # Ableton Live 12 Remote Script (MPK49_Revival)
+│   └── reason/              # Reason 14 Lua Codec + 3-Bank RemoteMap + Icon
 ├── presets/                 # Studio presets (JSON + compiled .syx)
-│   ├── ableton12_studio.*   # Slot 02 — 8 Macros, 8 Faders, 8 Track Mutes, Drum Rack pads
-│   ├── reason14_rack.*      # Slot 03 — Combinator Rotaries, Mixer Faders, Kong pads
-│   └── kontakt_orchestral.* # Slot 16 — CC1/11 Dynamics, Quick Controls, Articulation switches
+│   ├── ableton12_studio.*   # Slot 02 — 8 Macros, 8 Faders, Track Mutes, Drum Rack pads
+│   ├── reason14_rack_slot30.* # Slot 30 — Full SSL 3-bank console + modern rack synths
+│   └── kontakt_orchestral.* # Slot 16 — CC1/11 Dynamics, Quick Controls, Articulations
 ├── tools/
 │   └── compile_preset.js    # CLI: validates JSON → outputs verified 1,033-byte .syx
 ├── docs/
+│   ├── DAW_INTEGRATION_GUIDE.md        # Comprehensive Live 12 & Reason 14 guide
 │   ├── AKAI_MPK49_SYSEX_SPECIFICATION.md
 │   ├── AGENT_PRESET_CREATION_GUIDE.md
 │   └── assets/
