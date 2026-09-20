@@ -2,6 +2,8 @@
 
 A Web MIDI editor, SysEx librarian, and open hardware specification for the **Akai MPK49**. No installs, no legacy drivers—runs in Chrome/Edge/Brave via the Web MIDI API.
 
+![MPK-Revival Studio Editor](docs/assets/mpk_revival_editor.png)
+
 > [!WARNING]
 > Experimental. Back up your presets before flashing anything to hardware.
 
