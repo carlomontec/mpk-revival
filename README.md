@@ -9,6 +9,18 @@ A Web MIDI editor, SysEx librarian, and open hardware specification for the **Ak
 
 ---
 
+## Why This Exists
+
+The Akai MPK49 is genuinely one of the best MIDI controllers ever made—semi-weighted keys with aftertouch, velocity-sensitive MPC pads, 360° encoders, long-throw faders. Built to last decades. Musicians still use them daily.
+
+What wasn't built to last was the software. When inMusic acquired Akai Professional, they discontinued all editor support for the MPK series without releasing source code, documentation, or a migration path. The official **Vyzex MPK49** editor was abandoned as a 32-bit binary—it stopped working on macOS Catalina (2019) and Windows 11 64-bit. That's a lot of years of silence on a product people paid real money for.
+
+No SDK. No SysEx protocol docs. No replacement. Just a great controller with no way to back up or edit presets from a computer.
+
+MPK-Revival is the community answer: a fully reverse-engineered open spec and a modern web-based editor, so the MPK49 gets the software support Akai never provided.
+
+---
+
 ## Quick Start
 
 ```bash
@@ -93,3 +105,4 @@ PRs and hardware dumps welcome—especially from **MPK25**, **MPK61**, and **MPK
 
 - **Author**: [@carlomontec](https://github.com/carlomontec)
 - **License**: MIT © 2026
+- **AI Assistance**: Reverse-engineering workflow, SysEx parser, Web MIDI driver, and visual editor pair-programmed with [Google Gemini](https://deepmind.google/technologies/gemini/) via **Google Antigravity (AGY)**.
