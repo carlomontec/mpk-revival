@@ -155,6 +155,6 @@ See [`docs/AGENT_PRESET_CREATION_GUIDE.md`](docs/AGENT_PRESET_CREATION_GUIDE.md)
 
 PRs and hardware dumps welcome—especially from **MPK25**, **MPK61**, and **MPK88** users (architecture is compatible but offsets may differ). Open an issue or PR.
 
-- **Author**: [@carlomontec](https://github.com/carlomontec)
-- **License**: MIT © 2026
+- **Author**: Dr. Carlo Monjaraz Tec ([@carlomontec](https://github.com/carlomontec))
+- **License**: [GNU AGPLv3](LICENSE) © 2026 Dr. Carlo Monjaraz Tec
 - **AI Assistance**: Reverse-engineering workflow, SysEx parser, Web MIDI driver, and visual editor pair-programmed with [Google Gemini](https://deepmind.google/technologies/gemini/) via **Google Antigravity (AGY)**.
