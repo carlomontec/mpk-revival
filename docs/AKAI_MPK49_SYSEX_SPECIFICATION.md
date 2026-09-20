@@ -12,6 +12,13 @@ When inMusic acquired Akai Professional, official software support for older MID
 
 This document details the **exact 1,033-byte SysEx memory format**, controller offsets, and hardware quirks reverse-engineered from physical hardware dumps and empirical validation.
 
+### Validation Status
+
+All fields marked **✅ Verified** have been confirmed via round-trip testing on a physical MPK49 (first-generation hardware, USB `F0 47 00 6B`) against all 30 factory ROM presets. Fields marked **🔍 Inferred** are consistent across factory dumps but have not been exhaustively stress-tested. Fields marked **❓ Unknown** remain unclear.
+
+> [!NOTE]
+> **Methodology**: Factory preset dumps were captured via Web MIDI SysEx request, decoded byte-by-byte, and then re-encoded and re-uploaded. A zero-byte-diff round-trip on all 30 slots was used as the correctness criterion. The switch mode byte (§4.6) was additionally validated by loading test presets onto physical hardware and observing LED toggle vs. momentary behavior.
+
 ---
 
 ## 2. USB Port Architecture & Communication Routing
@@ -73,7 +80,7 @@ Byte Offset | Value / Range     | Description
 * 8 ASCII characters, padded with spaces (`0x20`).
 * **Hardware Quirk**: Contrary to popular belief, the physical 16-character 2-line MPK49 backlit LCD screen **fully renders lowercase letters** (e.g. `LiveLite`, `Reason`, `Cubase`). You do not need to convert names to uppercase.
 
-### 4.2. Global & Arpeggiator (Bytes `16..43`)
+### 4.2. Global & Arpeggiator (Bytes `16..43`) ✅ Verified
 * **Byte 16**: Global MIDI Channel (`0..15` = Ch 1..16).
 * **Byte 17**: Internal Tempo (`30..300` BPM).
 * **Byte 18**: Clock Source (`1` = Internal, `0` = External MIDI Clock).
@@ -89,15 +96,22 @@ Byte Offset | Value / Range     | Description
   - `3` = **LiveLite / Cubase** DAW Surface Protocol.
   - `4` = **PTEX** (Pro Tools Controller Protocol).
 
-### 4.3. MPC Drum Pads (Bytes `44..555`)
+> [!IMPORTANT]
+> **Firmware Integrity Bytes** 🔍 Inferred — Bytes `29`, `30`, `31` must **not** be zero (`0x03`, `0x01`, `0x01` are the factory defaults). If these bytes are zeroed out (e.g. by initializing from a blank `Uint8Array`), the MPK49 firmware accepts the SysEx load silently but locks the `[ENTER]` button on the hardware—the preset appears in the slot list but cannot be activated. Always seed new presets from a real factory dump rather than a zero-filled buffer.
+> **Bytes 20, 23, 26–31** ❓ Unknown — consistent values observed across all factory presets but purpose unclear. Preserve them verbatim when constructing new presets.
+
+### 4.3. MPC Drum Pads (Bytes `44..555`) ✅ Verified
+
 * 4 Banks (`A`, `B`, `C`, `D`) × 12 Pads = **48 total pad records**.
 * Each pad record is **8 bytes**:
   - `+0`: Mode (`0`=Momentary, `1`=Toggle).
   - `+1`: MIDI Channel (`0..15` = Ch 1..16; `16` or `32` = Common).
   - `+2`: MIDI Note Number (`0..127`).
   - `+3`: Aftertouch Mode (`0`=Off, `1`=Channel Pressure, `2`=Polyphonic Key Pressure).
+  - `+4`: **Must be `0x01`** ❗ — Zeroing this byte causes firmware to reject pad input silently. Function unknown; factory dumps universally set it to `1`.
+  - `+5..+7`: Reserved (`0x00`).
 
-### 4.4. Rotary Knobs / Encoders K1–K8 (Bytes `556..723`)
+### 4.4. Rotary Knobs / Encoders K1–K8 (Bytes `556..723`) ✅ Verified
 * 3 Banks (`A`, `B`, `C`) × 8 Knobs = **24 total knob records**.
 * Each knob record is **7 bytes**:
   - `+0`: Control Flag / Mode (`0x00`).
@@ -105,18 +119,19 @@ Byte Offset | Value / Range     | Description
   - `+2`: **MIDI Continuous Controller (CC) Number** (`0..127`).
   - `+3`: Minimum Range (`0..127`).
   - `+4`: Maximum Range (`0..127`).
-  - `+5..+6`: Reserved / Internal state.
+  - `+5..+6`: ❓ Unknown — two bytes always `0x00` across all factory presets. Possibly relative/absolute encoder mode flag or internal state. Preserve verbatim.
 
-### 4.5. Sliders / Faders F1–F8 (Bytes `724..843`)
+### 4.5. Sliders / Faders F1–F8 (Bytes `724..843`) ✅ Verified
 * 3 Banks (`A`, `B`, `C`) × 8 Faders = **24 total fader records**.
 * Each fader record is **5 bytes**:
-  - `+0`: Control Flag (`0x00`).
+  - `+0`: ❓ Unknown — Control flag, always `0x00` in factory dumps. Possibly acceleration or resolution mode.
   - `+1`: MIDI Channel (`0..15`, or `32` = Common).
   - `+2`: **MIDI Continuous Controller (CC) Number** (`0..127`).
   - `+3`: Minimum Range (`0..127`).
   - `+4`: Maximum Range (`0..127`).
 
-### 4.6. Assignable Switches / Buttons S1–S8 (Bytes `844..1011`)
+### 4.6. Assignable Switches / Buttons S1–S8 (Bytes `844..1011`) ✅ Verified
+
 * 3 Banks (`A`, `B`, `C`) × 8 Switches = **24 total switch records**.
 * Offset: `844 + (bankIndex * 8 + switchIndex) * 7`.
 * Each switch record is **7 bytes**:
@@ -131,21 +146,46 @@ Byte Offset | Value / Range     | Description
 > ⚠️ **DEVELOPER PITFALL**:  
 > Many older forum threads and reverse-engineering drafts guessed that `0` would default to Toggle and `1` to Momentary. Empirical testing on the physical MPK49 hardware and all 30 factory ROM presets proves the exact opposite: **`1` is Toggle** and **`0` is Momentary**. Inverting this byte causes buttons to behave as momentary triggers when intended as toggles, or vice versa.
 
-### 4.7. Pedals & Modulation Wheels (Bytes `1012..1031`)
+### 4.7. Pedals & Modulation Wheels (Bytes `1012..1031`) 🔍 Inferred
 * **Modulation Wheel**:
   - Byte `1012`: MIDI Channel
   - Byte `1013`: CC Number (Default: `1`)
   - Byte `1014`: Minimum (Default: `0`)
   - Byte `1015`: Maximum (Default: `127`)
+  - Bytes `1016..1017`: ❓ Unknown — always `0x00`.
 * **Expression Pedal**:
   - Byte `1018`: MIDI Channel
   - Byte `1019`: CC Number (Default: `11`)
   - Byte `1020`: Minimum (Default: `0`)
   - Byte `1021`: Maximum (Default: `127`)
+  - Byte `1022`: ❓ Unknown — always `0x00`.
 * **Sustain Pedal (Foot Switch 1)**:
   - Byte `1023`: MIDI Channel
   - Byte `1024`: CC Number (Default: `64`)
   - Byte `1025`: Switch Mode (`0` = Momentary)
+  - Bytes `1026..1031`: ❓ Unknown — gap before EOX. Preserve verbatim.
+
+---
+
+## 4.9. Known Unknowns & Open Research Questions
+
+The following bytes are consistently non-zero across all 30 factory presets but their semantic meaning has not been determined. **Do not zero these out** — doing so may trigger firmware integrity failures (silent lock of `[ENTER]` button).
+
+| Byte(s) | Factory Default | Hypothesis | Status |
+| :--- | :--- | :--- | :--- |
+| `29` | `0x03` | Clock/routing flags | ❓ Unknown |
+| `30` | `0x01` | Likely a version or mode flag | ❓ Unknown |
+| `31` | `0x01` | Paired with byte 30 | ❓ Unknown |
+| Pad `+4` | `0x01` | Possibly pad velocity curve or hardware sync byte | ❓ Unknown |
+| Knob `+0` | `0x00` | Control type flag (absolute/relative) | ❓ Unknown |
+| Knob `+5..+6` | `0x00 0x00` | Possibly encoder step size or internal state | ❓ Unknown |
+| Fader `+0` | `0x00` | Control type or resolution mode | ❓ Unknown |
+| Switch `+4..+6` | `0x00 0x00 0x00` | Hardware LED state cache? | ❓ Unknown |
+| `1016..1017` | `0x00 0x00` | Mod wheel extra config | ❓ Unknown |
+| `1022` | `0x00` | Expression pedal extra config | ❓ Unknown |
+| `1026..1031` | varies | Foot switch 2 / extra pedal registers | 🔍 Inferred |
+
+> If you have access to a working **Vyzex MPK49** binary or a SysEx capture from a known configuration, please open a PR — these bytes could be cracked with controlled experiments.
 
 ### 4.8. MIDI Channel Encoding Specification (Port A & Port B)
 

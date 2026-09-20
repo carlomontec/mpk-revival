@@ -46,100 +46,197 @@ function nameToMidiNote(str) {
   return (parseInt(oct, 10) + 1) * 12 + idx;
 }
 
+const GENERIC_TEMPLATE_B64 = "8EcAaxAIAR5HZW5lcmljIAB4AQQBMjoBBAI8MgADAQECAAAAAAAAAAAAAAADACQAAQAAAAMAJQABAAAAAwAmAAEAAAADACcAAQAAAAMAKAABAAAAAwApAAEAAAADACoAAQAAAAMAKwABAAAAAwAsAAEAAAADAC0AAQAAAAMALgABAAAAAwAvAAEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAMAMAABAAAAAwAxAAEAAAADADIAAQAAAAMAMwABAAAAAwA0AAEAAAADADUAAQAAAAMANgABAAAAAwA3AAEAAAADADgAAQAAAAMAOQABAAAAAwA6AAEAAAADADsAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAwA8AAEAAAADAD0AAQAAAAMAPgABAAAAAwA/AAEAAAADAEAAAQAAAAMAQQABAAAAAwBCAAEAAAADAEMAAQAAAAMARAABAAAAAwBFAAEAAAADAEYAAQAAAAMARwABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAADAEgAAQAAAAMASQABAAAAAwBKAAEAAAADAEsAAQAAAAMATAABAAAAAwBNAAEAAAADAE4AAQAAAAMATwABAAAAAwBQAAEAAAADAFEAAQAAAAMAUgABAAAAAwBTAAEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAwB/f38AAAkAf39/AAAOAH9/fwAADwB/f38AABAAf39/AAARAH9/fwAAEgB/f38AABMAf39/AAA0AH9/fwAANQB/f38AADYAf39/AAA3AH9/fwAAOQB/f38AADoAf39/AAA7AH9/fwAAPAB/f38AAFMAf39/AABVAH9/fwAAVgB/f38AAFcAf39/AABYAH9/fwAAWQB/f38AAFoAf39/AABbAH9/fwAAFAB/AAAVAH8AABYAfwAAFwB/AAAYAH8AABkAfwAAGgB/AAAbAH8AAD0AfwAAPgB/AAA/AH8AAEYAfwAARwB/AABIAH8AAEkAfwAASgB/AABcAH8AAF0AfwAAXgB/AABfAH8AAGYAfwAAZwB/AABoAH8AAGkAfwAAHAEAAAAAAB0BAAAAAAAeAQAAAAAAHwEAAAAAACMBAAAAAAApAQAAAAAALgEAAAAAAC8BAAAAAABLAQAAAAAATAEAAAAAAE0BAAAAAABOAQAAAAAATwEAAAAAAFABAAAAAABRAQAAAAAAUgEAAAAAAGoBAAAAAABrAQAAAAAAbAEAAAAAAG0BAAAAAABuAQAAAAAAbwEAAAAAAHABAAAAAABxAQAAAAABAH8AAAELAH8AAUAAAAABQAAA9w==";
+
+function getGenericTemplateBytes() {
+  if (typeof Buffer !== 'undefined') {
+    return new Uint8Array(Buffer.from(GENERIC_TEMPLATE_B64, 'base64'));
+  }
+  const binary = atob(GENERIC_TEMPLATE_B64);
+  const bytes = new Uint8Array(binary.length);
+  for (let i = 0; i < binary.length; i++) bytes[i] = binary.charCodeAt(i);
+  return bytes;
+}
+
 class MPK49Preset {
-  constructor(rawBytes = null) {
-    if (rawBytes) {
-      this.decode(rawBytes);
+  constructor(data = null) {
+    if (data instanceof Uint8Array || (Array.isArray(data) && typeof data[0] === 'number')) {
+      this.decode(data);
+    } else if (data && typeof data === 'object') {
+      this.initDefault();
+      this.fromJSON(data);
     } else {
       this.initDefault();
     }
   }
 
-  initDefault() {
-    this.rawBytes = new Uint8Array(1033);
-    this.rawBytes[0] = 0xF0;
-    this.rawBytes[1] = 0x47;
-    this.rawBytes[2] = 0x00;
-    this.rawBytes[3] = 0x6B;
-    this.rawBytes[4] = 0x10;
-    this.rawBytes[5] = 0x08;
-    this.rawBytes[6] = 0x01;
-    this.rawBytes[7] = 0x01; // Slot 1
-    this.rawBytes[1032] = 0xF7;
+  fromJSON(json) {
+    if (!json || typeof json !== 'object') return this;
 
-    this.slot = 1;
-    this.name = "MyPreset";
+    if (json.name) {
+      this.name = String(json.name).trim().slice(0, 8);
+    }
+    if (json.slot !== undefined) {
+      this.slot = Math.max(1, Math.min(30, parseInt(json.slot, 10) || 1));
+    }
+    if (json.description) {
+      this.description = String(json.description);
+    }
 
     // Global / Arp
-    this.global = {
-      keybedChannel: 1,
-      tempo: 120,
-      clockSource: 'Internal',
-      timeDivision: '1/16',
-      timeDivisionIdx: 4,
-      arpGate: 50,
-      arpSwing: 50,
-      arpType: 'Up',
-      arpTypeIdx: 0,
-      arpRange: '+0',
-      arpRangeIdx: 0,
-      octave: 0,
-      transpose: 0,
-      transportMode: 'MIDI CC',
-      transportModeIdx: 3
-    };
-
-    // 4 Pad Banks (A, B, C, D) x 12 Pads
-    this.pads = { A: [], B: [], C: [], D: [] };
-    ['A', 'B', 'C', 'D'].forEach((bank, bIdx) => {
-      for (let i = 0; i < 12; i++) {
-        this.pads[bank].push({
-          padIndex: i + 1,
-          note: 36 + (bIdx * 12) + i, // C2, C#2...
-          channel: 1,
-          mode: 3, // Note
-          aftertouch: 0
-        });
+    if (json.global) {
+      const g = json.global;
+      if (g.keybedChannel !== undefined) {
+        this.global.keybedChannel = g.keybedChannel;
       }
-    });
-
-    // 3 Banks (A, B, C) x 8 Controls
-    this.faders = { A: [], B: [], C: [] };
-    this.knobs = { A: [], B: [], C: [] };
-    this.switches = { A: [], B: [], C: [] };
-
-    ['A', 'B', 'C'].forEach((bank) => {
-      for (let i = 0; i < 8; i++) {
-        this.knobs[bank].push({
-          index: i + 1,
-          cc: 22 + i,
-          min: 0,
-          max: 127,
-          channel: '1A'
-        });
-        this.faders[bank].push({
-          index: i + 1,
-          cc: 12 + i,
-          min: 0,
-          max: 127,
-          channel: '1A'
-        });
-        this.switches[bank].push({
-          index: i + 1,
-          cc: 32 + i,
-          mode: 1, // 1 = Toggle (TGL), 0 = Momentary (MMT)
-          channel: '1A'
-        });
+      if (g.tempo !== undefined) {
+        this.global.tempo = Math.max(30, Math.min(300, parseInt(g.tempo, 10)));
       }
-    });
+      if (g.transportMode !== undefined) {
+        this.global.transportMode = g.transportMode;
+        const idx = TRANSPORT_MODES.indexOf(g.transportMode);
+        if (idx !== -1) this.global.transportModeIdx = idx;
+      }
+      if (g.timeDivision !== undefined) {
+        this.global.timeDivision = g.timeDivision;
+        const idx = TIME_DIVISIONS.indexOf(g.timeDivision);
+        if (idx !== -1) this.global.timeDivisionIdx = idx;
+      }
+      if (g.arpType !== undefined) {
+        this.global.arpType = g.arpType;
+        const idx = ARP_TYPES.indexOf(g.arpType);
+        if (idx !== -1) this.global.arpTypeIdx = idx;
+      }
+      if (g.arpGate !== undefined) {
+        this.global.arpGate = Math.max(0, Math.min(100, parseInt(g.arpGate, 10)));
+      }
+      if (g.arpSwing !== undefined) {
+        this.global.arpSwing = Math.max(50, Math.min(75, parseInt(g.arpSwing, 10)));
+      }
+    }
 
     // Wheels & Pedals
-    this.wheels = {
-      modWheel: { channel: 1, cc: 1, min: 0, max: 127 },
-      expressionPedal: { channel: 1, cc: 11, min: 0, max: 127 },
-      sustainPedal: { channel: 1, cc: 64, mode: 'Momentary' },
-      footSwitch2: { channel: 1, cc: 65, mode: 'Momentary' }
+    if (json.wheels) {
+      ['modWheel', 'expressionPedal', 'sustainPedal', 'footSwitch2'].forEach(w => {
+        if (json.wheels[w]) {
+          this.wheels[w] = Object.assign({}, this.wheels[w], json.wheels[w]);
+        }
+      });
+    }
+
+    // Knobs (A, B, C)
+    if (json.knobs) {
+      ['A', 'B', 'C'].forEach(bank => {
+        if (Array.isArray(json.knobs[bank])) {
+          json.knobs[bank].forEach((item, i) => {
+            const idx = (item.index !== undefined ? item.index - 1 : i);
+            if (idx >= 0 && idx < 8 && this.knobs[bank][idx]) {
+              const k = this.knobs[bank][idx];
+              if (item.cc !== undefined) k.cc = Math.max(0, Math.min(127, parseInt(item.cc, 10)));
+              if (item.channel !== undefined) k.channel = String(item.channel);
+              if (item.min !== undefined) k.min = Math.max(0, Math.min(127, parseInt(item.min, 10)));
+              if (item.max !== undefined) k.max = Math.max(0, Math.min(127, parseInt(item.max, 10)));
+              if (item.name) k.name = String(item.name);
+            }
+          });
+        }
+      });
+    }
+
+    // Faders (A, B, C)
+    if (json.faders) {
+      ['A', 'B', 'C'].forEach(bank => {
+        if (Array.isArray(json.faders[bank])) {
+          json.faders[bank].forEach((item, i) => {
+            const idx = (item.index !== undefined ? item.index - 1 : i);
+            if (idx >= 0 && idx < 8 && this.faders[bank][idx]) {
+              const f = this.faders[bank][idx];
+              if (item.cc !== undefined) f.cc = Math.max(0, Math.min(127, parseInt(item.cc, 10)));
+              if (item.channel !== undefined) f.channel = String(item.channel);
+              if (item.min !== undefined) f.min = Math.max(0, Math.min(127, parseInt(item.min, 10)));
+              if (item.max !== undefined) f.max = Math.max(0, Math.min(127, parseInt(item.max, 10)));
+              if (item.name) f.name = String(item.name);
+            }
+          });
+        }
+      });
+    }
+
+    // Switches (A, B, C)
+    if (json.switches) {
+      ['A', 'B', 'C'].forEach(bank => {
+        if (Array.isArray(json.switches[bank])) {
+          json.switches[bank].forEach((item, i) => {
+            const idx = (item.index !== undefined ? item.index - 1 : i);
+            if (idx >= 0 && idx < 8 && this.switches[bank][idx]) {
+              const s = this.switches[bank][idx];
+              if (item.cc !== undefined) s.cc = Math.max(0, Math.min(127, parseInt(item.cc, 10)));
+              if (item.channel !== undefined) s.channel = String(item.channel);
+              if (item.mode !== undefined) {
+                if (typeof item.mode === 'string') {
+                  s.mode = item.mode.toLowerCase().includes('tog') ? 1 : 0;
+                } else {
+                  s.mode = item.mode ? 1 : 0;
+                }
+              }
+              if (item.name) s.name = String(item.name);
+            }
+          });
+        }
+      });
+    }
+
+    // MPC Pads (A, B, C, D)
+    if (json.pads) {
+      ['A', 'B', 'C', 'D'].forEach(bank => {
+        if (Array.isArray(json.pads[bank])) {
+          json.pads[bank].forEach((item, i) => {
+            const idx = (item.index !== undefined ? item.index - 1 : (item.padIndex !== undefined ? item.padIndex - 1 : i));
+            if (idx >= 0 && idx < 12 && this.pads[bank][idx]) {
+              const p = this.pads[bank][idx];
+              if (item.note !== undefined) {
+                if (typeof item.note === 'string') {
+                  p.note = nameToMidiNote(item.note);
+                  p.noteName = item.note.toUpperCase();
+                } else {
+                  p.note = Math.max(0, Math.min(127, parseInt(item.note, 10)));
+                  p.noteName = midiNoteToName(p.note);
+                }
+              }
+              if (item.channel !== undefined) p.channel = String(item.channel);
+              if (item.mode !== undefined) p.mode = item.mode;
+              if (item.aftertouch !== undefined) p.aftertouch = item.aftertouch;
+              if (item.name) p.name = String(item.name);
+            }
+          });
+        }
+      });
+    }
+
+    this.encode();
+    return this;
+  }
+
+  toSemanticJSON() {
+    return {
+      device: "Akai MPK49",
+      name: this.name,
+      slot: this.slot,
+      description: this.description || "",
+      global: this.global,
+      wheels: this.wheels,
+      knobs: this.knobs,
+      faders: this.faders,
+      switches: this.switches,
+      pads: this.pads
     };
+  }
+
+  initDefault() {
+    const baseBytes = getGenericTemplateBytes();
+    this.decode(baseBytes);
+    this.name = "MyPreset";
+    this.slot = 1;
   }
 
   decode(bytes) {

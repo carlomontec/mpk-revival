@@ -5,9 +5,15 @@
 - Staging, drafting code, running local tests, and inspecting `git diff` / `git status` are permitted, but creating commits or pushing to remote remotes requires user approval.
 
 ## Hardware Safety Protocol
+- **No Autonomous Hardware Flashing**: NEVER attempt to write or send SysEx dumps to physical hardware directly in autonomous or batch mode. Hardware EEPROMs must only be updated when initiated manually by the user from the web studio.
 - **Non-Destructive First**: Prioritize read-only port discovery, SysEx dump capture, and offline byte analysis.
 - **Zero Premature Write-Back**: Do not send experimental or unverified SysEx parameter writes to physical hardware without explicit verification and user confirmation.
 - **Local Preset Management First**: Users should create, edit, and safely store presets locally in the browser/file system before transmitting to hardware.
+
+## AI Preset Authoring & Compiler Protocol
+- AI agents act as **Sound & Preset Architects**. Presets must be authored as semantic JSON in `presets/<name>.json`.
+- Presets must be validated and compiled offline using `node tools/compile_preset.js <path>` into verified 1,033-byte `.syx` files.
+- Consult [`docs/AGENT_PRESET_CREATION_GUIDE.md`](file:///Users/carlo/code/code_music/mpk-revival/docs/AGENT_PRESET_CREATION_GUIDE.md) for full schema specifications and ergonomic design patterns (Ableton, Reason, Kontakt, Synths).
 
 ## Akai MPK49 Hardware & SysEx Specifications
 - **Packet Size**: Exactly 1,033 bytes per preset (`F0 47 00 6B 10 08 01 [Slot 01..1E] ... F7`).

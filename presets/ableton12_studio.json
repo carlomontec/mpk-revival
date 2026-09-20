@@ -1,0 +1,72 @@
+{
+  "name": "Live12",
+  "slot": 2,
+  "description": "Ableton Live 12 Studio Template: 8 Macros, 8 Track Faders, 8 Track Mutes (Toggle), and 4x3 Drum Rack MPC Pads",
+  "global": {
+    "keybedChannel": "1A",
+    "tempo": 120,
+    "transportMode": "MIDI CC"
+  },
+  "knobs": {
+    "A": [
+      { "index": 1, "name": "Macro 1", "cc": 22, "channel": "1A", "min": 0, "max": 127 },
+      { "index": 2, "name": "Macro 2", "cc": 23, "channel": "1A", "min": 0, "max": 127 },
+      { "index": 3, "name": "Macro 3", "cc": 24, "channel": "1A", "min": 0, "max": 127 },
+      { "index": 4, "name": "Macro 4", "cc": 25, "channel": "1A", "min": 0, "max": 127 },
+      { "index": 5, "name": "Macro 5", "cc": 26, "channel": "1A", "min": 0, "max": 127 },
+      { "index": 6, "name": "Macro 6", "cc": 27, "channel": "1A", "min": 0, "max": 127 },
+      { "index": 7, "name": "Macro 7", "cc": 28, "channel": "1A", "min": 0, "max": 127 },
+      { "index": 8, "name": "Macro 8", "cc": 29, "channel": "1A", "min": 0, "max": 127 }
+    ],
+    "B": [
+      { "index": 1, "name": "Send A1", "cc": 30, "channel": "1A", "min": 0, "max": 127 },
+      { "index": 2, "name": "Send A2", "cc": 31, "channel": "1A", "min": 0, "max": 127 },
+      { "index": 3, "name": "Send A3", "cc": 40, "channel": "1A", "min": 0, "max": 127 },
+      { "index": 4, "name": "Send A4", "cc": 41, "channel": "1A", "min": 0, "max": 127 },
+      { "index": 5, "name": "Send A5", "cc": 42, "channel": "1A", "min": 0, "max": 127 },
+      { "index": 6, "name": "Send A6", "cc": 43, "channel": "1A", "min": 0, "max": 127 },
+      { "index": 7, "name": "Send A7", "cc": 44, "channel": "1A", "min": 0, "max": 127 },
+      { "index": 8, "name": "Send A8", "cc": 45, "channel": "1A", "min": 0, "max": 127 }
+    ]
+  },
+  "faders": {
+    "A": [
+      { "index": 1, "name": "Track 1 Vol", "cc": 12, "channel": "1A", "min": 0, "max": 127 },
+      { "index": 2, "name": "Track 2 Vol", "cc": 13, "channel": "1A", "min": 0, "max": 127 },
+      { "index": 3, "name": "Track 3 Vol", "cc": 14, "channel": "1A", "min": 0, "max": 127 },
+      { "index": 4, "name": "Track 4 Vol", "cc": 15, "channel": "1A", "min": 0, "max": 127 },
+      { "index": 5, "name": "Track 5 Vol", "cc": 16, "channel": "1A", "min": 0, "max": 127 },
+      { "index": 6, "name": "Track 6 Vol", "cc": 17, "channel": "1A", "min": 0, "max": 127 },
+      { "index": 7, "name": "Track 7 Vol", "cc": 18, "channel": "1A", "min": 0, "max": 127 },
+      { "index": 8, "name": "Master Vol",  "cc": 19, "channel": "1A", "min": 0, "max": 127 }
+    ]
+  },
+  "switches": {
+    "A": [
+      { "index": 1, "name": "Mute 1", "cc": 32, "channel": "1A", "mode": "Toggle" },
+      { "index": 2, "name": "Mute 2", "cc": 33, "channel": "1A", "mode": "Toggle" },
+      { "index": 3, "name": "Mute 3", "cc": 34, "channel": "1A", "mode": "Toggle" },
+      { "index": 4, "name": "Mute 4", "cc": 35, "channel": "1A", "mode": "Toggle" },
+      { "index": 5, "name": "Mute 5", "cc": 36, "channel": "1A", "mode": "Toggle" },
+      { "index": 6, "name": "Mute 6", "cc": 37, "channel": "1A", "mode": "Toggle" },
+      { "index": 7, "name": "Mute 7", "cc": 38, "channel": "1A", "mode": "Toggle" },
+      { "index": 8, "name": "Mute 8", "cc": 39, "channel": "1A", "mode": "Toggle" }
+    ]
+  },
+  "pads": {
+    "A": [
+      { "index": 1,  "name": "Kick 1",       "note": "C1",  "channel": "1A" },
+      { "index": 2,  "name": "Kick 2",       "note": "C#1", "channel": "1A" },
+      { "index": 3,  "name": "Snare Rim",    "note": "D1",  "channel": "1A" },
+      { "index": 4,  "name": "Snare Clap",   "note": "D#1", "channel": "1A" },
+      { "index": 5,  "name": "Snare Main",   "note": "E1",  "channel": "1A" },
+      { "index": 6,  "name": "Low Tom",      "note": "F1",  "channel": "1A" },
+      { "index": 7,  "name": "Closed Hat",   "note": "F#1", "channel": "1A" },
+      { "index": 8,  "name": "Mid Tom",      "note": "G1",  "channel": "1A" },
+      { "index": 9,  "name": "Pedal Hat",    "note": "G#1", "channel": "1A" },
+      { "index": 10, "name": "High Tom",     "note": "A1",  "channel": "1A" },
+      { "index": 11, "name": "Open Hat",     "note": "A#1", "channel": "1A" },
+      { "index": 12, "name": "Crash Cymbal", "note": "B1",  "channel": "1A" }
+    ]
+  }
+}

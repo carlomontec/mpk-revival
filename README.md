@@ -1,100 +1,93 @@
-# MPK-Revival 🎹⚡️
+# MPK-Revival 🎹
 
-> Bringing the legendary **Akai MPK49** into the modern music production era.
-
-A modern, zero-install Web MIDI Editor, SysEx Librarian, and open hardware specification for the Akai MPK49 (with architectural compatibility for MPK25, MPK61, and MPK88).
-
-![MPK-Revival Studio Editor](docs/assets/mpk_revival_editor.png)
+A Web MIDI editor, SysEx librarian, and open hardware specification for the **Akai MPK49**. No installs, no legacy drivers—runs in Chrome/Edge/Brave via the Web MIDI API.
 
 > [!WARNING]
-> **Experimental Status**: This project is currently in an active, experimental development phase. Always back up your keyboard presets before flashing custom SysEx dumps to hardware.
->
-> 🤖 **Developed with Google Antigravity 3.8 Flash**: The entire reverse-engineering workflow, SysEx parser, Web MIDI driver, and visual hardware editor are pair-programmed and coded using **Google Antigravity (AGY) with Gemini 3.8 Flash**.
+> Experimental. Back up your presets before flashing anything to hardware.
 
 ---
 
-## 🌟 Why MPK-Revival?
-
-The Akai MPK49 is one of the most rugged, responsive MIDI controllers ever built—featuring semi-weighted keys with aftertouch, genuine MPC-style velocity-sensitive drum pads, continuous 360° rotary encoders, and long-throw faders.
-
-However, when inMusic acquired Akai Professional, official software support was discontinued. The original **Vyzex MPK49** editor software is an abandoned 32-bit legacy application from the Windows XP / Mac OS X 10.5 era that cannot run on modern 64-bit operating systems (macOS Catalina+, Windows 11 64-bit). Without software, musicians were left with no way to back up or edit presets on their computer.
-
-**MPK-Revival solves this completely:**
-- 🌐 **Zero-Install Web MIDI Studio**: Open in Chrome, Edge, Brave, or Opera—no drivers, installations, or legacy software needed.
-- 🎯 **Live Hardware Follow**: Touch any slider, knob, switch, pad, or piano key on your desk, and the editor instantly highlights that exact control on screen for immediate custom assignment.
-- 💾 **Universal SysEx Librarian**: Back up, inspect, edit, and push presets straight to/from the keyboard memory slots (1–30).
-- 📜 **Full Community Hardware Specification**: We reverse-engineered the entire 1,033-byte SysEx memory layout and published it openly for the music and developer community.
-- 🎛️ **DAW Integrations**:
-  - **Reason 14**: Dedicated Remote Codecs & Remote Maps taking full advantage of Reason Combinators and Mixer.
-  - **Ableton Live (MPK49++)**: Modern Python 3 control scripts with session focus ring and mixer control.
-
----
-
-## 🚀 Quick Start (Running the Editor)
-
-You can run the web editor locally with Python, Node.js, or any static HTTP server:
+## Quick Start
 
 ```bash
-cd editor
-python3 -m http.server 8080
+cd editor && python3 -m http.server 8080
 ```
 
-1. Open **`http://localhost:8080`** in your Web MIDI compatible browser.
-2. Connect your Akai MPK49 via USB.
-3. Click **`[🔌 Connect MIDI]`**.
-4. Set **`🎹 MPK on Desk:`** to the slot your keyboard is currently running (e.g. `Slot 02: LiveLite`).
-5. Move any physical fader or knob—the visual console will jump directly to that control in real-time!
+Open **[http://localhost:8080](http://localhost:8080)**, connect the MPK49 via USB, click **`[🔌 Connect MIDI]`**, and set `🎹 MPK on Desk:` to the slot currently loaded on the keyboard. Touch any physical control—the editor jumps to it in real time.
 
 ---
 
-## 🔬 Reverse-Engineered Hardware Specification
+## What It Does
 
-Because Akai never released an official SDK or SysEx protocol guide, we dumped all 30 factory memory slots and reverse-engineered the internal 1,033-byte memory layout.
-
-👉 **Read the full community specification**:  
-📘 **[Akai MPK49 SysEx & Hardware Architecture Specification](docs/AKAI_MPK49_SYSEX_SPECIFICATION.md)**
-
-### Key Byte Memory Offsets (Summary)
-
-| Block | Byte Range | Size | Record Description |
-| :--- | :--- | :--- | :--- |
-| **SysEx Header** | `0000..0006` | 7 B | `F0 47 00 6B 10 08 01` (Preset Dump Header) |
-| **Slot Number** | `0007` | 1 B | Slot 1 (`0x01`) to Slot 30 (`0x1E`) |
-| **Preset Name** | `0008..0015` | 8 B | 8 ASCII characters (**LCD renders mixed/lower case!**) |
-| **Global / Arpeggiator** | `0016..0043` | 28 B | Tempo, Clock, Time Division, Swing, Gate, Transport Mode |
-| **MPC Drum Pads** | `0044..0555` | 512 B | 4 Banks (A–D) × 12 pads = 48 pads (8 bytes each) |
-| **Rotary Knobs (K1–K8)**| `0556..0723` | 168 B | 3 Banks (A–C) × 8 knobs = 24 knobs (7 bytes each) |
-| **Sliders / Faders (F1–F8)**| `0724..0843` | 120 B | 3 Banks (A–C) × 8 faders = 24 faders (5 bytes each) |
-| **Switches / Buttons (S1–S8)**| `0844..1011` | 168 B | 3 Banks (A–C) × 8 switches = 24 switches (7 bytes each) |
-| **Wheels & Pedals** | `1012..1031` | 20 B | Mod Wheel (1013), Expression (1019), Sustain (1024) |
-| **SysEx End** | `1032` | 1 B | `0xF7` (End of Exclusive) |
+- **Web MIDI Studio** — Visual editor for all 30 preset slots. Live hardware sensing: touch a knob, fader, or pad and the UI highlights it instantly.
+- **SysEx Librarian** — Read, edit, and write presets directly to/from keyboard memory.
+- **Open Hardware Spec** — Full reverse-engineered 1,033-byte memory map: [`docs/AKAI_MPK49_SYSEX_SPECIFICATION.md`](docs/AKAI_MPK49_SYSEX_SPECIFICATION.md)
+- **AI Preset Architect** — Semantic JSON presets that compile to verified `.syx` files via `tools/compile_preset.js`.
 
 ---
 
-## 🛠️ Repository Structure
+## Memory Map (Summary)
+
+| Block | Range | Size |
+| :--- | :--- | :--- |
+| SysEx Header | `0x0000..0x0006` | 7 B — `F0 47 00 6B 10 08 01` |
+| Slot Number | `0x0007` | 1 B — `0x01`..`0x1E` |
+| Preset Name | `0x0008..0x000F` | 8 B — ASCII, mixed case supported |
+| Global / Arpeggiator | `0x0010..0x002B` | 28 B |
+| MPC Drum Pads | `0x002C..0x022B` | 512 B — 4 banks × 12 pads × 8 B |
+| Rotary Knobs K1–K8 | `0x022C..0x02D3` | 168 B — 3 banks × 8 knobs × 7 B |
+| Faders F1–F8 | `0x02D4..0x034B` | 120 B — 3 banks × 8 faders × 5 B |
+| Switches S1–S8 | `0x034C..0x03F3` | 168 B — 3 banks × 8 switches × 7 B |
+| Wheels & Pedals | `0x03F4..0x0407` | 20 B |
+| SysEx End | `0x0408` | 1 B — `0xF7` |
+
+---
+
+## Repository Structure
 
 ```
 mpk-revival/
-├── editor/                  # Web MIDI Visual Studio Application
-│   ├── index.html           # 2-Row Topbar, Retro Synth Console, & Gapless 49 Keybed
-│   ├── css/                 # Modern styling & hardware-accurate layout
+├── editor/                  # Web MIDI Studio
+│   ├── index.html
+│   ├── css/
 │   └── js/
-│       ├── app.js           # Core application logic & Live Hardware Sensing
-│       ├── sysex_schema.js  # 1,033-byte encoder, decoder, and data structures
-│       ├── midi_engine.js   # Web MIDI API input/output driver
-│       └── factory_data.js  # Bundled ROM dumps of all 30 factory presets
+│       ├── app.js           # UI, live hardware sensing, drag & drop
+│       ├── sysex_schema.js  # 1,033-byte encoder/decoder + fromJSON/toSemanticJSON
+│       ├── midi_engine.js   # Web MIDI API driver
+│       └── factory_data.js  # All 30 factory presets (base64 ROM dumps)
+├── presets/                 # Studio presets (JSON + compiled .syx)
+│   ├── ableton12_studio.*   # Slot 02 — 8 Macros, 8 Faders, 8 Track Mutes, Drum Rack pads
+│   ├── reason14_rack.*      # Slot 03 — Combinator Rotaries, Mixer Faders, Kong pads
+│   └── kontakt_orchestral.* # Slot 16 — CC1/11 Dynamics, Quick Controls, Articulation switches
+├── tools/
+│   └── compile_preset.js    # CLI: validates JSON → outputs verified 1,033-byte .syx
 ├── docs/
-│   ├── AKAI_MPK49_SYSEX_SPECIFICATION.md  # Complete community open spec
-│   └── assets/              # UI screenshots and diagrams
-├── backups/                 # Dumps of all 30 original factory presets (JSON & SYX)
-└── AGENTS.md                # Project development rules & constraints
+│   ├── AKAI_MPK49_SYSEX_SPECIFICATION.md
+│   ├── AGENT_PRESET_CREATION_GUIDE.md
+│   └── assets/
+├── backups/                 # All 30 original factory presets (JSON + SYX)
+└── AGENTS.md                # Development rules & constraints
 ```
 
 ---
 
-## 🤝 Community & Contributions
+## AI Preset Workflow
 
-Contributions, bug reports, and pull requests are welcome! If you have additional hardware test dumps from an **MPK25**, **MPK61**, or **MPK88**, please feel free to open a PR.
+To create a custom preset, ask an AI agent to generate a semantic JSON file in `presets/`. The agent researches the MIDI CC map for your instrument, lays out controls ergonomically, then compiles and validates the `.syx`:
 
-* **Author**: [@carlomontec](https://github.com/carlomontec)
-* **License**: [MIT](LICENSE) © 2026
+```bash
+node tools/compile_preset.js presets/my_preset.json
+```
+
+Drag the resulting `.json` or `.syx` into the Web Studio, review it, and press **`[⚡️ Send to MPK49]`** to flash it.
+
+See [`docs/AGENT_PRESET_CREATION_GUIDE.md`](docs/AGENT_PRESET_CREATION_GUIDE.md) for the full authoring spec.
+
+---
+
+## Contributing
+
+PRs and hardware dumps welcome—especially from **MPK25**, **MPK61**, and **MPK88** users (architecture is compatible but offsets may differ). Open an issue or PR.
+
+- **Author**: [@carlomontec](https://github.com/carlomontec)
+- **License**: MIT © 2026

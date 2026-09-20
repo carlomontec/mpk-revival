@@ -241,6 +241,15 @@ class StudioApp {
     this.btnLoadFile.addEventListener('click', () => this.fileInputSyx.click());
     this.fileInputSyx.addEventListener('change', (e) => this.handleFileSelect(e));
 
+    // Drag & Drop preset files (.json / .syx) anywhere onto editor window
+    window.addEventListener('dragover', (e) => e.preventDefault());
+    window.addEventListener('drop', (e) => {
+      e.preventDefault();
+      if (e.dataTransfer && e.dataTransfer.files && e.dataTransfer.files.length > 0) {
+        this.loadFileObject(e.dataTransfer.files[0]);
+      }
+    });
+
     this.btnSaveLocal.addEventListener('click', () => this.saveToLocalLibrary());
     this.btnDeleteLocal.addEventListener('click', () => this.deleteCurrentPreset());
     this.btnNewPreset.addEventListener('click', () => this.openNewPresetModal());
@@ -1459,8 +1468,12 @@ class StudioApp {
 
   handleFileSelect(event) {
     const file = event.target.files[0];
-    if (!file) return;
+    if (file) this.loadFileObject(file);
+    event.target.value = '';
+  }
 
+  loadFileObject(file) {
+    if (!file) return;
     const reader = new FileReader();
     reader.onload = (e) => {
       try {
@@ -1469,15 +1482,19 @@ class StudioApp {
           if (json.bytes) {
             this.currentPreset = new MPK49Preset(new Uint8Array(json.bytes));
           } else {
-            throw new Error('JSON is missing raw bytes');
+            // High-level semantic JSON template from an AI agent or user
+            const preset = new MPK49Preset();
+            preset.fromJSON(json);
+            this.currentPreset = preset;
           }
         } else {
           const buffer = new Uint8Array(e.target.result);
           this.currentPreset = new MPK49Preset(buffer);
         }
         this.renderAll();
-        this.showToast(`Opened "${file.name}"`, 'success');
+        this.showToast(`Opened "${file.name}" (Slot ${this.currentPreset.slot}: ${this.currentPreset.name})`, 'success');
       } catch (err) {
+        console.error(err);
         alert(`Error opening file: ${err.message}`);
       }
     };

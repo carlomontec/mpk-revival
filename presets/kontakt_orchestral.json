@@ -1,0 +1,62 @@
+{
+  "name": "Kontakt",
+  "slot": 16,
+  "description": "Native Instruments Kontakt Orchestral & Cinematic Performance Template: CC 1 Dynamics, CC 11 Expression, Quick Controls, and Key Switches",
+  "global": {
+    "keybedChannel": "1A",
+    "tempo": 120,
+    "transportMode": "MIDI CC"
+  },
+  "knobs": {
+    "A": [
+      { "index": 1, "name": "Quick Ctrl 1",  "cc": 14, "channel": "1A", "min": 0, "max": 127 },
+      { "index": 2, "name": "Quick Ctrl 2",  "cc": 15, "channel": "1A", "min": 0, "max": 127 },
+      { "index": 3, "name": "Quick Ctrl 3",  "cc": 16, "channel": "1A", "min": 0, "max": 127 },
+      { "index": 4, "name": "Quick Ctrl 4",  "cc": 17, "channel": "1A", "min": 0, "max": 127 },
+      { "index": 5, "name": "Quick Ctrl 5",  "cc": 18, "channel": "1A", "min": 0, "max": 127 },
+      { "index": 6, "name": "Quick Ctrl 6",  "cc": 19, "channel": "1A", "min": 0, "max": 127 },
+      { "index": 7, "name": "Reverb Send",   "cc": 91, "channel": "1A", "min": 0, "max": 127 },
+      { "index": 8, "name": "Brightness/LP", "cc": 74, "channel": "1A", "min": 0, "max": 127 }
+    ]
+  },
+  "faders": {
+    "A": [
+      { "index": 1, "name": "CC1 Dynamics",    "cc": 1,  "channel": "1A", "min": 0, "max": 127 },
+      { "index": 2, "name": "CC11 Expression", "cc": 11, "channel": "1A", "min": 0, "max": 127 },
+      { "index": 3, "name": "CC7 Volume",      "cc": 7,  "channel": "1A", "min": 0, "max": 127 },
+      { "index": 4, "name": "CC10 Pan",        "cc": 10, "channel": "1A", "min": 0, "max": 127 },
+      { "index": 5, "name": "CC21 Vibrato",    "cc": 21, "channel": "1A", "min": 0, "max": 127 },
+      { "index": 6, "name": "CC2 Breath",      "cc": 2,  "channel": "1A", "min": 0, "max": 127 },
+      { "index": 7, "name": "CC67 Soft Tone",  "cc": 67, "channel": "1A", "min": 0, "max": 127 },
+      { "index": 8, "name": "CC84 Legato Spd", "cc": 84, "channel": "1A", "min": 0, "max": 127 }
+    ]
+  },
+  "switches": {
+    "A": [
+      { "index": 1, "name": "Legato Trigger",    "cc": 80, "channel": "1A", "mode": "Momentary" },
+      { "index": 2, "name": "Staccato Trigger",  "cc": 81, "channel": "1A", "mode": "Momentary" },
+      { "index": 3, "name": "Pizzicato Trigger", "cc": 82, "channel": "1A", "mode": "Momentary" },
+      { "index": 4, "name": "Spiccato Trigger",  "cc": 83, "channel": "1A", "mode": "Momentary" },
+      { "index": 5, "name": "Tremolo Trigger",   "cc": 85, "channel": "1A", "mode": "Momentary" },
+      { "index": 6, "name": "Marcato Trigger",   "cc": 86, "channel": "1A", "mode": "Momentary" },
+      { "index": 7, "name": "Mute / Solo Ch 1",  "cc": 87, "channel": "1A", "mode": "Toggle" },
+      { "index": 8, "name": "FX Insert Bypass",  "cc": 88, "channel": "1A", "mode": "Toggle" }
+    ]
+  },
+  "pads": {
+    "A": [
+      { "index": 1,  "name": "Gran Cassa / Bass Drum", "note": "C1",  "channel": "1A" },
+      { "index": 2,  "name": "Timpani Hits",           "note": "D1",  "channel": "1A" },
+      { "index": 3,  "name": "Field Snare",            "note": "E1",  "channel": "1A" },
+      { "index": 4,  "name": "Piatti / Crash",         "note": "F1",  "channel": "1A" },
+      { "index": 5,  "name": "Tam-Tam / Gong",         "note": "G1",  "channel": "1A" },
+      { "index": 6,  "name": "Orchestral Triangle",    "note": "A1",  "channel": "1A" },
+      { "index": 7,  "name": "Castanets",              "note": "B1",  "channel": "1A" },
+      { "index": 8,  "name": "Tambourine",             "note": "C2",  "channel": "1A" },
+      { "index": 9,  "name": "Woodblocks",             "note": "D2",  "channel": "1A" },
+      { "index": 10, "name": "Tubular Bells",          "note": "E2",  "channel": "1A" },
+      { "index": 11, "name": "Glockenspiel",          "note": "F2",  "channel": "1A" },
+      { "index": 12, "name": "Taiko Low Impact",       "note": "G2",  "channel": "1A" }
+    ]
+  }
+}

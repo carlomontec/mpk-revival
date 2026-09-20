@@ -60,8 +60,27 @@ Each preset binary dump (.syx) is exactly 1,033 bytes:
 3. **Live Hardware Follow Resolution**:
    - To match incoming CC to physical controls reliably on screen, always resolve against an active Hardware Profile (e.g., LiveLite Slot 02, Reason Slot 03), because different hardware presets assign the same CC numbers to different physical controls.
 
+## AI Preset Authoring & Compiler Workflow
+
+When the user asks you to create an MPK49 preset/template for a DAW (Ableton, Reason, etc.), synth (Massive, Vital, Serum), or sampler (Kontakt):
+
+1. **Follow the Preset Creation Guide**:
+   - Consult [`docs/AGENT_PRESET_CREATION_GUIDE.md`](file:///Users/carlo/code/code_music/mpk-revival/docs/AGENT_PRESET_CREATION_GUIDE.md) for full JSON schema, physical control layouts, and ergonomic design patterns.
+2. **Draft the Semantic JSON Template**:
+   - Write `presets/<name>.json` with clean control names, CCs, channels, switch modes, and pad notes.
+   - Restrict preset name to $\le 8$ characters (mixed case supported).
+3. **Compile & Validate Offline**:
+   - Run:
+     ```bash
+     node tools/compile_preset.js presets/<name>.json
+     ```
+   - Verify that compilation succeeds and outputs a verified 1,033-byte `.syx` binary in `presets/<name>.syx`.
+4. **Instruct the User to Test in Web Studio**:
+   - Tell the user to open or drag-and-drop `presets/<name>.json` into the **MPK-Revival Web Studio** ([http://localhost:8080](http://localhost:8080)) to visually review and test before flashing.
+
 ## Safety Rules
 
 1. **Never commit or push without explicit user authorization.**
-2. **Local Editing First**: Allow users to configure presets and save to local library/JSON/SYX before hardware flashing.
-3. **Safe Writes**: Always target Slot 30 (or user-chosen slot) with verified 1,033-byte frames.
+2. **No Autonomous Hardware Flashing**: Never attempt to write or send SysEx dumps to physical hardware directly without user initiation.
+3. **Local Editing First**: Allow users to configure presets and save to local library/JSON/SYX before hardware flashing.
+4. **Safe Writes**: Always target Slot 30 (or user-chosen slot) with verified 1,033-byte frames.
