@@ -1287,7 +1287,12 @@ class StudioApp {
 
   pushToHardware() {
     if (!this.midiEngine.isConnected) {
-      alert('Please connect Web MIDI first by clicking "Connect MIDI".');
+      this.showToast('Please connect Web MIDI first by clicking "[🔌 Connect MIDI]".', 'error');
+      return;
+    }
+
+    if (!this.midiEngine.isMpkConnected || !this.midiEngine.activeOutput) {
+      this.showToast('⚠️ Akai MPK49 not detected! Please plug in your MPK49 via USB.', 'warning');
       return;
     }
 
@@ -1299,7 +1304,8 @@ class StudioApp {
       this.currentPreset.slot = targetSlot;
       const encoded = this.currentPreset.encode();
       const slot = this.midiEngine.sendPreset(encoded, targetSlot);
-      this.showToast(`⚡️ Sent "${this.currentPreset.name}" to MPK49 Slot #${slot}!`, 'success');
+      const slotStr = String(slot).padStart(2, '0');
+      this.showToast(`⚡️ Transmitted to Slot #${slotStr}! Now on MPK49: Turn dial to Preset ${slotStr} and press [ENTER] to activate.`, 'success');
     } catch (err) {
       this.showToast(`Write Error: ${err.message}`, 'error');
     }

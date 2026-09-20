@@ -7,8 +7,10 @@ set -e
 REPO_ROOT="$(cd "$(dirname "$0")/.." && pwd)"
 
 ABLETON_SCRIPTS="$HOME/Music/Ableton/User Library/Remote Scripts"
-REASON_CODECS="$HOME/Library/Application Support/Propellerhead Software/Remote/Codecs/Lua Codecs/Akai"
-REASON_MAPS="$HOME/Library/Application Support/Propellerhead Software/Remote/Maps/Akai"
+REASON_USER_CODECS="$HOME/Library/Application Support/Propellerhead Software/Remote/Codecs/Lua Codecs/Akai"
+REASON_USER_MAPS="$HOME/Library/Application Support/Propellerhead Software/Remote/Maps/Akai"
+REASON_APP_CODECS="/Applications/Reason 14.app/Contents/Resources/Remote/DefaultCodecs/Lua Codecs/Akai"
+REASON_APP_MAPS="/Applications/Reason 14.app/Contents/Resources/Remote/DefaultMaps/Akai"
 
 echo ""
 echo "🎹 MPK49 Revival — DAW Integration Installer"
@@ -25,18 +27,19 @@ echo "    → Ableton: Preferences → MIDI → Control Surfaces → MPK49 Reviv
 echo "      Input + Output: Akai MPK49 Port 1"
 echo ""
 
-# ── Reason 14 ────────────────────────────────────────────────────────────────
-echo "📦  Installing Reason 14 Remote Codec..."
-mkdir -p "$REASON_CODECS"
-cp "$REPO_ROOT/daw-integration/reason/AkaiMPK49_Revival.lua"       "$REASON_CODECS/"
-cp "$REPO_ROOT/daw-integration/reason/AkaiMPK49_Revival.luacodec"  "$REASON_CODECS/"
-echo "    ✓ Codec installed → $REASON_CODECS/"
+# ── Reason 14 User Library ───────────────────────────────────────────────────
+echo "📦  Installing Reason 14 Remote Codec & Map to User Library..."
+mkdir -p "$REASON_USER_CODECS"
+cp "$REPO_ROOT/daw-integration/reason/AkaiMPK49_Revival.lua"       "$REASON_USER_CODECS/"
+cp "$REPO_ROOT/daw-integration/reason/AkaiMPK49_Revival.luacodec"  "$REASON_USER_CODECS/"
+echo "    ✓ Codec installed → $REASON_USER_CODECS/"
 
-echo "📦  Installing Reason 14 Remote Map..."
-mkdir -p "$REASON_MAPS"
-cp "$REPO_ROOT/daw-integration/reason/AkaiMPK49_Revival.remotemap" "$REASON_MAPS/"
-echo "    ✓ Map installed   → $REASON_MAPS/"
-echo "    → Reason: Preferences → Control Surfaces → Add Surface"
+mkdir -p "$REASON_USER_MAPS"
+cp "$REPO_ROOT/daw-integration/reason/AkaiMPK49_Revival.remotemap" "$REASON_USER_MAPS/"
+echo "    ✓ Map installed   → $REASON_USER_MAPS/"
+
+echo ""
+echo "    → Reason 14: Preferences → Control Surfaces → Add Surface"
 echo "      Manufacturer: Akai | Model: MPK49 Revival"
 echo "      Input: Akai MPK49 Port 1 | Output: Akai MPK49 Port 1"
 echo ""

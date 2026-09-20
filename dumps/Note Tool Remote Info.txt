@@ -1,0 +1,46 @@
+Scope
+Manufacturer	Model
+Propellerhead Software	se.propellerheads.NoteTool
+
+Remotable	Min	Max	Input type	Output type
+Filter by Pitch	0	1	Toggle	ValueOutput
+Low Key	0	127	Value	ValueOutput
+High Key	0	127	Value	ValueOutput
+Filter by Velocity	0	1	Toggle	ValueOutput
+Low Velocity	0	126	Value	ValueOutput
+High Velocity	0	126	Value	ValueOutput
+Pitch Adjust On	0	1	Toggle	ValueOutput
+Pitch Adjust Mode	0	1	Toggle	ValueOutput
+Pitch Offset	0	48	Value	ValueOutput
+Fixed Pitch	0	127	Value	ValueOutput
+Octave Adjust On	0	1	Toggle	ValueOutput
+Octave Offset	0	6	Value	ValueOutput
+Velocity Adjust On	0	1	Toggle	ValueOutput
+Velocity Adjust Mode	0	2	Value	ValueOutput
+Velocity Offset	0	254	Value	ValueOutput
+Fixed Velocity	0	126	Value	ValueOutput
+Scale Velocity	0	4194304	Value	ValueOutput
+Velocity Curve P1 Y	0	4194304	Value	ValueOutput
+Velocity Curve P1 Shape	0	4194304	Value	ValueOutput
+Velocity Curve P2 On	0	1	Toggle	ValueOutput
+Velocity Curve P2 X	0	4194304	Value	ValueOutput
+Velocity Curve P2 Y	0	4194304	Value	ValueOutput
+Velocity Curve P2 Shape	0	4194304	Value	ValueOutput
+Velocity Curve P3 Y	0	4194304	Value	ValueOutput
+Note Length On	0	1	Toggle	ValueOutput
+Note Length Mode	0	2	Value	ValueOutput
+Note Length	0	12	Value	ValueOutput
+Restrict Poly On	0	1	Toggle	ValueOutput
+Restrict Poly Prio	0	3	Value	ValueOutput
+Max Notes	0	15	Value	ValueOutput
+Hold On	0	1	Toggle	ValueOutput
+Hold Mode	0	2	Value	ValueOutput
+Hold Reset	0	1	Hold	ValueOutput
+On	0	1	Toggle	ValueOutput
+Routing Mode	0	2	Value	ValueOutput
+Pattern Select	-1	7	Value	ValueOutput
+Device Name	0	0	-	TextOutput
+Patch Name	0	0	-	TextOutput
+Select Patch Delta	0	0	Delta	TextOutput
+Select Previous Patch	0	0	Trig	TextOutput
+Select Next Patch	0	0	Trig	TextOutput

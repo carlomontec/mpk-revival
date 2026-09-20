@@ -40,6 +40,7 @@ class MidiEngine {
         return true;
       } catch (err2) {
         this.isConnected = false;
+        this.isMpkConnected = false;
         this.updateStatus(`MIDI Init Failed: ${err.message}`, 'error');
         return false;
       }
@@ -49,56 +50,75 @@ class MidiEngine {
   scanPorts() {
     if (!this.midiAccess) return;
 
-    let inputCount = 0;
-    let preferredInputName = null;
+    let mpkOutput = null;
+    let mpkInput = null;
+    const allDeviceNames = new Set();
+    const inputsList = [];
+    const outputsList = [];
 
-    // Listen to ALL inputs
+    // Scan all Inputs
     for (const input of this.midiAccess.inputs.values()) {
-      inputCount++;
       if (typeof input.open === 'function') {
         input.open().catch(() => {});
       }
       input.onmidimessage = (e) => this.handleMidiMessage(e, input.name);
 
-      const lower = input.name.toLowerCase();
-      if (lower.includes('mpk') || lower.includes('akai')) {
-        preferredInputName = input.name;
+      const name = input.name || '';
+      const mfg = input.manufacturer || '';
+      const full = `${name} ${mfg}`.toLowerCase();
+      allDeviceNames.add(name);
+      inputsList.push({ name, manufacturer: mfg });
+
+      if (full.includes('mpk') || full.includes('akai')) {
+        mpkInput = input;
       }
     }
 
-    // Auto-select preferred output (Port 1 preferred for Akai MPK49)
-    let bestOutput = null;
-    let outputCount = 0;
+    // Scan all Outputs — prioritize Akai MPK49 Port 1
     for (const output of this.midiAccess.outputs.values()) {
-      outputCount++;
       if (typeof output.open === 'function') {
         output.open().catch(() => {});
       }
-      const lower = output.name.toLowerCase();
-      if ((lower.includes('mpk') || lower.includes('akai')) && (lower.includes('port 1') || !lower.includes('port'))) {
-        bestOutput = output;
-        break;
-      } else if (!bestOutput && (lower.includes('mpk') || lower.includes('akai'))) {
-        bestOutput = output;
-      } else if (!bestOutput) {
-        bestOutput = output;
+      const name = output.name || '';
+      const mfg = output.manufacturer || '';
+      const full = `${name} ${mfg}`.toLowerCase();
+      allDeviceNames.add(name);
+      outputsList.push({ name, manufacturer: mfg });
+
+      if (full.includes('mpk') || full.includes('akai')) {
+        if (full.includes('port 1') || !full.includes('port')) {
+          mpkOutput = output;
+          break; // Found preferred Port 1
+        } else if (!mpkOutput) {
+          mpkOutput = output;
+        }
       }
     }
 
-    if (bestOutput) {
-      this.activeOutput = bestOutput;
-      this.connectedDeviceName = bestOutput.name;
-      this.updateStatus(`Connected: ${bestOutput.name}`, 'success');
-    } else if (preferredInputName) {
-      this.connectedDeviceName = preferredInputName;
-      this.updateStatus(`Connected: ${preferredInputName}`, 'success');
-    } else if (inputCount > 0 || outputCount > 0) {
-      const anyDevice = [...this.midiAccess.inputs.values(), ...this.midiAccess.outputs.values()][0]?.name || 'MIDI Controller';
-      this.connectedDeviceName = anyDevice;
-      this.updateStatus(`Connected: ${anyDevice}`, 'success');
+    console.log('[WebMIDI] Scan completed:', { inputs: inputsList, outputs: outputsList, mpkFound: !!mpkOutput });
+
+    if (mpkOutput) {
+      this.activeOutput = mpkOutput;
+      this.isMpkConnected = true;
+      this.isConnected = true;
+      this.connectedDeviceName = mpkOutput.name;
+      this.updateStatus(`Connected: ${mpkOutput.name}`, 'success');
+    } else if (mpkInput) {
+      this.activeOutput = null;
+      this.isMpkConnected = true;
+      this.isConnected = true;
+      this.connectedDeviceName = mpkInput.name;
+      this.updateStatus(`Connected (In only): ${mpkInput.name}`, 'warning');
     } else {
+      this.activeOutput = null;
+      this.isMpkConnected = false;
       this.connectedDeviceName = null;
-      this.updateStatus('MIDI Ready (Connect MPK49 USB)', 'warning');
+      if (allDeviceNames.size > 0) {
+        const list = Array.from(allDeviceNames).slice(0, 2).join(', ');
+        this.updateStatus(`MPK49 Not Found (Detected: ${list})`, 'warning');
+      } else {
+        this.updateStatus('No MIDI Devices (Connect MPK49 via USB)', 'warning');
+      }
     }
   }
 

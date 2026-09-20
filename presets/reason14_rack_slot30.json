@@ -1,0 +1,662 @@
+{
+  "name": "Reason14",
+  "slot": 30,
+  "description": "Reason 14 Rack Console. Bank A: Ch 1-8 Vol, Comb Rotary 1-4, Synth Filter, Comb Btn 1-4. Bank B: Send 1 1-8, Pan 1-8, Mute 1-8. Bank C: Send 2 1-8, Synth Macro 9-16, Solo 1-8. Transport: MMC.",
+  "global": {
+    "keybedChannel": "1A",
+    "tempo": 120,
+    "transportMode": "MMC"
+  },
+  "knobs": {
+    "A": [
+      {
+        "index": 1,
+        "name": "Comb Rot 1",
+        "cc": 2,
+        "channel": "1A",
+        "min": 0,
+        "max": 127
+      },
+      {
+        "index": 2,
+        "name": "Comb Rot 2",
+        "cc": 3,
+        "channel": "1A",
+        "min": 0,
+        "max": 127
+      },
+      {
+        "index": 3,
+        "name": "Comb Rot 3",
+        "cc": 4,
+        "channel": "1A",
+        "min": 0,
+        "max": 127
+      },
+      {
+        "index": 4,
+        "name": "Comb Rot 4",
+        "cc": 5,
+        "channel": "1A",
+        "min": 0,
+        "max": 127
+      },
+      {
+        "index": 5,
+        "name": "Filter Cut",
+        "cc": 6,
+        "channel": "1A",
+        "min": 0,
+        "max": 127
+      },
+      {
+        "index": 6,
+        "name": "Resonance",
+        "cc": 7,
+        "channel": "1A",
+        "min": 0,
+        "max": 127
+      },
+      {
+        "index": 7,
+        "name": "Pan",
+        "cc": 8,
+        "channel": "1A",
+        "min": 0,
+        "max": 127
+      },
+      {
+        "index": 8,
+        "name": "Level",
+        "cc": 9,
+        "channel": "1A",
+        "min": 0,
+        "max": 127
+      }
+    ],
+    "B": [
+      {
+        "index": 1,
+        "name": "Pan Ch 1",
+        "cc": 52,
+        "channel": "1A",
+        "min": 0,
+        "max": 127
+      },
+      {
+        "index": 2,
+        "name": "Pan Ch 2",
+        "cc": 53,
+        "channel": "1A",
+        "min": 0,
+        "max": 127
+      },
+      {
+        "index": 3,
+        "name": "Pan Ch 3",
+        "cc": 54,
+        "channel": "1A",
+        "min": 0,
+        "max": 127
+      },
+      {
+        "index": 4,
+        "name": "Pan Ch 4",
+        "cc": 55,
+        "channel": "1A",
+        "min": 0,
+        "max": 127
+      },
+      {
+        "index": 5,
+        "name": "Pan Ch 5",
+        "cc": 56,
+        "channel": "1A",
+        "min": 0,
+        "max": 127
+      },
+      {
+        "index": 6,
+        "name": "Pan Ch 6",
+        "cc": 57,
+        "channel": "1A",
+        "min": 0,
+        "max": 127
+      },
+      {
+        "index": 7,
+        "name": "Pan Ch 7",
+        "cc": 58,
+        "channel": "1A",
+        "min": 0,
+        "max": 127
+      },
+      {
+        "index": 8,
+        "name": "Pan Ch 8",
+        "cc": 59,
+        "channel": "1A",
+        "min": 0,
+        "max": 127
+      }
+    ],
+    "C": [
+      {
+        "index": 1,
+        "name": "Aux 1",
+        "cc": 82,
+        "channel": "1A",
+        "min": 0,
+        "max": 127
+      },
+      {
+        "index": 2,
+        "name": "Aux 2",
+        "cc": 83,
+        "channel": "1A",
+        "min": 0,
+        "max": 127
+      },
+      {
+        "index": 3,
+        "name": "Aux 3",
+        "cc": 84,
+        "channel": "1A",
+        "min": 0,
+        "max": 127
+      },
+      {
+        "index": 4,
+        "name": "Aux 4",
+        "cc": 85,
+        "channel": "1A",
+        "min": 0,
+        "max": 127
+      },
+      {
+        "index": 5,
+        "name": "Aux 5",
+        "cc": 86,
+        "channel": "1A",
+        "min": 0,
+        "max": 127
+      },
+      {
+        "index": 6,
+        "name": "Aux 6",
+        "cc": 87,
+        "channel": "1A",
+        "min": 0,
+        "max": 127
+      },
+      {
+        "index": 7,
+        "name": "Aux 7",
+        "cc": 88,
+        "channel": "1A",
+        "min": 0,
+        "max": 127
+      },
+      {
+        "index": 8,
+        "name": "Aux 8",
+        "cc": 89,
+        "channel": "1A",
+        "min": 0,
+        "max": 127
+      }
+    ]
+  },
+  "faders": {
+    "A": [
+      {
+        "index": 1,
+        "name": "Mixer Ch 1",
+        "cc": 12,
+        "channel": "1A",
+        "min": 0,
+        "max": 127
+      },
+      {
+        "index": 2,
+        "name": "Mixer Ch 2",
+        "cc": 13,
+        "channel": "1A",
+        "min": 0,
+        "max": 127
+      },
+      {
+        "index": 3,
+        "name": "Mixer Ch 3",
+        "cc": 14,
+        "channel": "1A",
+        "min": 0,
+        "max": 127
+      },
+      {
+        "index": 4,
+        "name": "Mixer Ch 4",
+        "cc": 15,
+        "channel": "1A",
+        "min": 0,
+        "max": 127
+      },
+      {
+        "index": 5,
+        "name": "Mixer Ch 5",
+        "cc": 16,
+        "channel": "1A",
+        "min": 0,
+        "max": 127
+      },
+      {
+        "index": 6,
+        "name": "Mixer Ch 6",
+        "cc": 17,
+        "channel": "1A",
+        "min": 0,
+        "max": 127
+      },
+      {
+        "index": 7,
+        "name": "Mixer Ch 7",
+        "cc": 18,
+        "channel": "1A",
+        "min": 0,
+        "max": 127
+      },
+      {
+        "index": 8,
+        "name": "Mixer Ch 8",
+        "cc": 19,
+        "channel": "1A",
+        "min": 0,
+        "max": 127
+      }
+    ],
+    "B": [
+      {
+        "index": 1,
+        "name": "Send 1 Ch 1",
+        "cc": 42,
+        "channel": "1A",
+        "min": 0,
+        "max": 127
+      },
+      {
+        "index": 2,
+        "name": "Send 1 Ch 2",
+        "cc": 43,
+        "channel": "1A",
+        "min": 0,
+        "max": 127
+      },
+      {
+        "index": 3,
+        "name": "Send 1 Ch 3",
+        "cc": 44,
+        "channel": "1A",
+        "min": 0,
+        "max": 127
+      },
+      {
+        "index": 4,
+        "name": "Send 1 Ch 4",
+        "cc": 45,
+        "channel": "1A",
+        "min": 0,
+        "max": 127
+      },
+      {
+        "index": 5,
+        "name": "Send 1 Ch 5",
+        "cc": 46,
+        "channel": "1A",
+        "min": 0,
+        "max": 127
+      },
+      {
+        "index": 6,
+        "name": "Send 1 Ch 6",
+        "cc": 47,
+        "channel": "1A",
+        "min": 0,
+        "max": 127
+      },
+      {
+        "index": 7,
+        "name": "Send 1 Ch 7",
+        "cc": 48,
+        "channel": "1A",
+        "min": 0,
+        "max": 127
+      },
+      {
+        "index": 8,
+        "name": "Send 1 Ch 8",
+        "cc": 49,
+        "channel": "1A",
+        "min": 0,
+        "max": 127
+      }
+    ],
+    "C": [
+      {
+        "index": 1,
+        "name": "Send 2 Ch 1",
+        "cc": 72,
+        "channel": "1A",
+        "min": 0,
+        "max": 127
+      },
+      {
+        "index": 2,
+        "name": "Send 2 Ch 2",
+        "cc": 73,
+        "channel": "1A",
+        "min": 0,
+        "max": 127
+      },
+      {
+        "index": 3,
+        "name": "Send 2 Ch 3",
+        "cc": 74,
+        "channel": "1A",
+        "min": 0,
+        "max": 127
+      },
+      {
+        "index": 4,
+        "name": "Send 2 Ch 4",
+        "cc": 75,
+        "channel": "1A",
+        "min": 0,
+        "max": 127
+      },
+      {
+        "index": 5,
+        "name": "Send 2 Ch 5",
+        "cc": 76,
+        "channel": "1A",
+        "min": 0,
+        "max": 127
+      },
+      {
+        "index": 6,
+        "name": "Send 2 Ch 6",
+        "cc": 77,
+        "channel": "1A",
+        "min": 0,
+        "max": 127
+      },
+      {
+        "index": 7,
+        "name": "Send 2 Ch 7",
+        "cc": 78,
+        "channel": "1A",
+        "min": 0,
+        "max": 127
+      },
+      {
+        "index": 8,
+        "name": "Send 2 Ch 8",
+        "cc": 79,
+        "channel": "1A",
+        "min": 0,
+        "max": 127
+      }
+    ]
+  },
+  "switches": {
+    "A": [
+      {
+        "index": 1,
+        "name": "Arm/Btn 1",
+        "cc": 21,
+        "channel": "1A",
+        "mode": "Toggle"
+      },
+      {
+        "index": 2,
+        "name": "Arm/Btn 2",
+        "cc": 22,
+        "channel": "1A",
+        "mode": "Toggle"
+      },
+      {
+        "index": 3,
+        "name": "Arm/Btn 3",
+        "cc": 23,
+        "channel": "1A",
+        "mode": "Toggle"
+      },
+      {
+        "index": 4,
+        "name": "Arm/Btn 4",
+        "cc": 24,
+        "channel": "1A",
+        "mode": "Toggle"
+      },
+      {
+        "index": 5,
+        "name": "Arm/Btn 5",
+        "cc": 25,
+        "channel": "1A",
+        "mode": "Toggle"
+      },
+      {
+        "index": 6,
+        "name": "Arm/Btn 6",
+        "cc": 26,
+        "channel": "1A",
+        "mode": "Toggle"
+      },
+      {
+        "index": 7,
+        "name": "Arm/Btn 7",
+        "cc": 27,
+        "channel": "1A",
+        "mode": "Toggle"
+      },
+      {
+        "index": 8,
+        "name": "Arm/Btn 8",
+        "cc": 28,
+        "channel": "1A",
+        "mode": "Toggle"
+      }
+    ],
+    "B": [
+      {
+        "index": 1,
+        "name": "Mute Ch 1",
+        "cc": 62,
+        "channel": "1A",
+        "mode": "Toggle"
+      },
+      {
+        "index": 2,
+        "name": "Mute Ch 2",
+        "cc": 63,
+        "channel": "1A",
+        "mode": "Toggle"
+      },
+      {
+        "index": 3,
+        "name": "Mute Ch 3",
+        "cc": 64,
+        "channel": "1A",
+        "mode": "Toggle"
+      },
+      {
+        "index": 4,
+        "name": "Mute Ch 4",
+        "cc": 65,
+        "channel": "1A",
+        "mode": "Toggle"
+      },
+      {
+        "index": 5,
+        "name": "Mute Ch 5",
+        "cc": 66,
+        "channel": "1A",
+        "mode": "Toggle"
+      },
+      {
+        "index": 6,
+        "name": "Mute Ch 6",
+        "cc": 67,
+        "channel": "1A",
+        "mode": "Toggle"
+      },
+      {
+        "index": 7,
+        "name": "Mute Ch 7",
+        "cc": 68,
+        "channel": "1A",
+        "mode": "Toggle"
+      },
+      {
+        "index": 8,
+        "name": "Mute Ch 8",
+        "cc": 69,
+        "channel": "1A",
+        "mode": "Toggle"
+      }
+    ],
+    "C": [
+      {
+        "index": 1,
+        "name": "Solo Ch 1",
+        "cc": 92,
+        "channel": "1A",
+        "mode": "Toggle"
+      },
+      {
+        "index": 2,
+        "name": "Solo Ch 2",
+        "cc": 93,
+        "channel": "1A",
+        "mode": "Toggle"
+      },
+      {
+        "index": 3,
+        "name": "Solo Ch 3",
+        "cc": 94,
+        "channel": "1A",
+        "mode": "Toggle"
+      },
+      {
+        "index": 4,
+        "name": "Solo Ch 4",
+        "cc": 95,
+        "channel": "1A",
+        "mode": "Toggle"
+      },
+      {
+        "index": 5,
+        "name": "Solo Ch 5",
+        "cc": 96,
+        "channel": "1A",
+        "mode": "Toggle"
+      },
+      {
+        "index": 6,
+        "name": "Solo Ch 6",
+        "cc": 97,
+        "channel": "1A",
+        "mode": "Toggle"
+      },
+      {
+        "index": 7,
+        "name": "Solo Ch 7",
+        "cc": 98,
+        "channel": "1A",
+        "mode": "Toggle"
+      },
+      {
+        "index": 8,
+        "name": "Solo Ch 8",
+        "cc": 99,
+        "channel": "1A",
+        "mode": "Toggle"
+      }
+    ]
+  },
+  "pads": {
+    "A": [
+      {
+        "index": 1,
+        "name": "Kong 1 BassDrm",
+        "note": "C1",
+        "channel": "1A"
+      },
+      {
+        "index": 2,
+        "name": "Kong 2 Snare1",
+        "note": "D1",
+        "channel": "1A"
+      },
+      {
+        "index": 3,
+        "name": "Kong 3 Snare2",
+        "note": "E1",
+        "channel": "1A"
+      },
+      {
+        "index": 4,
+        "name": "Kong 4 Clap",
+        "note": "D#1",
+        "channel": "1A"
+      },
+      {
+        "index": 5,
+        "name": "Kong 5 ClosedHH",
+        "note": "F#1",
+        "channel": "1A"
+      },
+      {
+        "index": 6,
+        "name": "Kong 6 OpenHH",
+        "note": "A#1",
+        "channel": "1A"
+      },
+      {
+        "index": 7,
+        "name": "Kong 7 LowTom",
+        "note": "F1",
+        "channel": "1A"
+      },
+      {
+        "index": 8,
+        "name": "Kong 8 MidTom",
+        "note": "G1",
+        "channel": "1A"
+      },
+      {
+        "index": 9,
+        "name": "Kong 9 HiTom",
+        "note": "A1",
+        "channel": "1A"
+      },
+      {
+        "index": 10,
+        "name": "Kong 10 Rimshot",
+        "note": "C#1",
+        "channel": "1A"
+      },
+      {
+        "index": 11,
+        "name": "Kong 11 Crash",
+        "note": "C#2",
+        "channel": "1A"
+      },
+      {
+        "index": 12,
+        "name": "Kong 12 Ride",
+        "note": "D#2",
+        "channel": "1A"
+      }
+    ]
+  }
+}

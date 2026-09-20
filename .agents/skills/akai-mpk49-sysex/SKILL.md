@@ -78,6 +78,22 @@ When the user asks you to create an MPK49 preset/template for a DAW (Ableton, Re
 4. **Instruct the User to Test in Web Studio**:
    - Tell the user to open or drag-and-drop `presets/<name>.json` into the **MPK-Revival Web Studio** ([http://localhost:8080](http://localhost:8080)) to visually review and test before flashing.
 
+## Multi-Bank DAW Console Architecture (Banks A, B, C)
+
+When building DAW integrations (Ableton Live, Reason, etc.):
+- **Bank A (Performance / Play)**: Track Volume 1–8, Device Macros 1–8, Track Arm 1–8 (Toggle).
+- **Bank B (Mixer & Space)**: Send A / Reverb 1–8, Track Pan 1–8, Track Mute 1–8 (Toggle).
+- **Bank C (Isolation & Deep Control)**: Send B / Delay 1–8, Device Macros 9–16, Track Solo 1–8 (Toggle).
+- **Transport Navigation**: Map Rewind `<<` (CC 115) and Fast Forward `>>` (CC 116) to bank the 8-track window left and right so switches S1–S8 stay aligned 1:1 with tracks 1–8.
+
+### Reason 14 Remote Codec & Map Gotchas:
+- **User Library Priority**: Install to `~/Library/Application Support/Propellerhead Software/Remote/` (zero sudo needed). Reason prioritizes user library over system `/Library/` and app bundles.
+- **SSL Main Mixer Scope**: The Reason SSL desk is `Scope Propellerheads Reason Master Section` (`Channel 1 Level`..`Channel 8 Level`, `Channel 1 Pan`..`Channel 8 Pan`, `Channel 1 Mute`, `Channel 1 Solo`, `Previous 8 Remote Base Channel`, `Next 8 Remote Base Channel`). The vintage `Mixer 14:2` is only the 1990s rack mixer.
+- **Surface Locking**: In Reason, surfaces follow the active sequencer track by default. Right-click the Master Section in the rack and choose "Lock to this Device" to permanently lock MPK49 faders and mutes to the SSL console.
+- `.luacodec` files MUST have a valid `.png` file matching the `picture` attribute in the same directory, or Reason silently drops the codec during discovery.
+- `.remotemap` files MUST be strictly tab-separated (`\t`) and pure ASCII. Multibyte UTF-8 characters cause `RSText::FromASCII` to crash or skip the map.
+- No duplicate Remotable Item mappings in the same scope.
+
 ## Safety Rules
 
 1. **Never commit or push without explicit user authorization.**

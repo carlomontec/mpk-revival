@@ -2,23 +2,16 @@ Propellerhead Remote Mapping File
 File Format Version	1.0.0
 Control Surface Manufacturer	Akai
 Control Surface Model	MPK49 Revival
-Map Version	1.0.0
+Map Version	2.0.0
 
-// MPK49 Revival — Reason 14 Remote Map
-// Works with presets/reason14_rack.json (Slot 03) + AkaiMPK49_Revival.lua codec.
-//
-// CC map (Bank A, Channel 1):
-//   Knob 1-4:   CC 2-5   → Combinator Rotary 1-4
-//   Knob 5-8:   CC 6-9   → Synth filter/reso/pan/level (context-dependent)
-//   Fader 1-8:  CC 12-19 → Mixer 14:2 Channel 1-8 Level
-//   Switch 1-4: CC 21-24 → Combinator Button 1-4 (Toggle)
-//   Switch 5-6: CC 25-26 → Mixer 14:2 Channel 1-2 Mute (Toggle)
-//   Switch 7:   CC 27    → Punch In (Momentary)
-//   Switch 8:   CC 28    → Tap Tempo (Momentary)
-//   Transport:  MMC SysEx → Play / Stop / Record / Rewind / Fast Forward
+// MPK49 Revival - Reason 14 Remote Map (v2.0 Full 3-Bank Console)
+// Bank A: Performance (Combinator Rotaries/Buttons, Channel Levels)
+// Bank B: Mixer (Channel Pan 1-8, Aux 1 Sends 1-8, Channel Mutes 1-8)
+// Bank C: Space (Aux 2 Sends 1-8, Channel Solos 1-8, Secondary Controls)
+// Transport: MMC SysEx
 
 
-// ── Master Keyboard ───────────────────────────────────────────────────────────
+// Master Keyboard
 
 Scope	Propellerheads	Master Keyboard
 //	Control Surface Item	Key	Remotable Item
@@ -30,7 +23,7 @@ Map	Expression		Expression
 Map	Damper Pedal		Damper Pedal
 
 
-// ── Reason Document (Transport) ───────────────────────────────────────────────
+// Reason Document (Transport)
 
 Scope	Propellerheads	Reason Document
 //	Control Surface Item	Key	Remotable Item
@@ -39,10 +32,9 @@ Map	Stop		Stop
 Map	Record		Record
 Map	Rewind		Rewind
 Map	Fast Forward		Fast Forward
-Map	Switch 8		Tap Tempo
 
 
-// ── Combinator ────────────────────────────────────────────────────────────────
+// Combinator
 
 Scope	Propellerheads	Combinator
 //	Control Surface Item	Key	Remotable Item
@@ -56,29 +48,159 @@ Map	Switch 3		Button 3
 Map	Switch 4		Button 4
 
 
-// ── Mixer 14:2 ────────────────────────────────────────────────────────────────
+// Mixer 14:2 (Full 3-Bank Desk)
 
 Scope	Propellerheads	Mixer 14:2
-Define Group	Keyboard Shortcut Variations	Levels	Mutes
-//	Control Surface Item	Key	Remotable Item	Scale	Mode
+//	Control Surface Item	Key	Remotable Item
+// Bank A: Channel Levels 1-8
+Map	Fader 1		Channel 1 Level
+Map	Fader 2		Channel 2 Level
+Map	Fader 3		Channel 3 Level
+Map	Fader 4		Channel 4 Level
+Map	Fader 5		Channel 5 Level
+Map	Fader 6		Channel 6 Level
+Map	Fader 7		Channel 7 Level
+Map	Fader 8		Channel 8 Level
 
-Map	Fader 1		Channel 1 Level		Levels
-Map	Fader 2		Channel 2 Level		Levels
-Map	Fader 3		Channel 3 Level		Levels
-Map	Fader 4		Channel 4 Level		Levels
-Map	Fader 5		Channel 5 Level		Levels
-Map	Fader 6		Channel 6 Level		Levels
-Map	Fader 7		Channel 7 Level		Levels
-Map	Fader 8		Channel 8 Level		Levels
+// Bank B: Channel Pan 1-8, Aux 1 Send 1-8, Channel Mute 1-8
+Map	Knob 9		Channel 1 Pan
+Map	Knob 10		Channel 2 Pan
+Map	Knob 11		Channel 3 Pan
+Map	Knob 12		Channel 4 Pan
+Map	Knob 13		Channel 5 Pan
+Map	Knob 14		Channel 6 Pan
+Map	Knob 15		Channel 7 Pan
+Map	Knob 16		Channel 8 Pan
 
-Map	Switch 5		Channel 1 Mute		Mutes
-Map	Switch 6		Channel 2 Mute		Mutes
+Map	Fader 9		Channel 1 Aux 1 Send
+Map	Fader 10		Channel 2 Aux 1 Send
+Map	Fader 11		Channel 3 Aux 1 Send
+Map	Fader 12		Channel 4 Aux 1 Send
+Map	Fader 13		Channel 5 Aux 1 Send
+Map	Fader 14		Channel 6 Aux 1 Send
+Map	Fader 15		Channel 7 Aux 1 Send
+Map	Fader 16		Channel 8 Aux 1 Send
+
+Map	Switch 9		Channel 1 Mute
+Map	Switch 10		Channel 2 Mute
+Map	Switch 11		Channel 3 Mute
+Map	Switch 12		Channel 4 Mute
+Map	Switch 13		Channel 5 Mute
+Map	Switch 14		Channel 6 Mute
+Map	Switch 15		Channel 7 Mute
+Map	Switch 16		Channel 8 Mute
+
+// Bank C: Aux 2 Send 1-8, Channel Solo 1-8
+Map	Fader 17		Channel 1 Aux 2 Send
+Map	Fader 18		Channel 2 Aux 2 Send
+Map	Fader 19		Channel 3 Aux 2 Send
+Map	Fader 20		Channel 4 Aux 2 Send
+Map	Fader 21		Channel 5 Aux 2 Send
+Map	Fader 22		Channel 6 Aux 2 Send
+Map	Fader 23		Channel 7 Aux 2 Send
+Map	Fader 24		Channel 8 Aux 2 Send
+
+Map	Switch 17		Channel 1 Solo
+Map	Switch 18		Channel 2 Solo
+Map	Switch 19		Channel 3 Solo
+Map	Switch 20		Channel 4 Solo
+Map	Switch 21		Channel 5 Solo
+Map	Switch 22		Channel 6 Solo
+Map	Switch 23		Channel 7 Solo
+Map	Switch 24		Channel 8 Solo
 
 
-// ── Kong Drum Designer ────────────────────────────────────────────────────────
-// Note: Kong drum pads (Drum 1-12) are triggered directly via MIDI notes
-// from the MPK49 pads — no Remote mapping needed for note triggers.
-// The faders below control drum channel levels via Remote.
+// Reason Master Section (SSL Main Mixer Desk)
+
+Scope	Propellerheads	Reason Master Section
+//	Control Surface Item	Key	Remotable Item
+Map	Rewind		Previous 8 Remote Base Channel
+Map	Fast Forward		Next 8 Remote Base Channel
+
+// Bank A: Channel Levels 1-8, Master Bus Compressor & Master FX, Channel 1-8 EQ On
+Map	Fader 1		Channel 1 Level
+Map	Fader 2		Channel 2 Level
+Map	Fader 3		Channel 3 Level
+Map	Fader 4		Channel 4 Level
+Map	Fader 5		Channel 5 Level
+Map	Fader 6		Channel 6 Level
+Map	Fader 7		Channel 7 Level
+Map	Fader 8		Channel 8 Level
+
+Map	Knob 1		Threshold
+Map	Knob 2		Ratio
+Map	Knob 3		Attack
+Map	Knob 4		Release
+Map	Knob 5		Make-Up Gain
+// Knobs 6, 7, 8: Free for user assignment / Remote Override
+
+Map	Switch 1		Channel 1 EQ On
+Map	Switch 2		Channel 2 EQ On
+Map	Switch 3		Channel 3 EQ On
+Map	Switch 4		Channel 4 EQ On
+Map	Switch 5		Channel 5 EQ On
+Map	Switch 6		Channel 6 EQ On
+Map	Switch 7		Channel 7 EQ On
+Map	Switch 8		Channel 8 EQ On
+
+// Bank B: Channel Pan 1-8, FX1 Send 1-8, Channel Mute 1-8
+Map	Knob 9		Channel 1 Pan
+Map	Knob 10		Channel 2 Pan
+Map	Knob 11		Channel 3 Pan
+Map	Knob 12		Channel 4 Pan
+Map	Knob 13		Channel 5 Pan
+Map	Knob 14		Channel 6 Pan
+Map	Knob 15		Channel 7 Pan
+Map	Knob 16		Channel 8 Pan
+
+Map	Fader 9		Channel 1 FX1 Send Level
+Map	Fader 10		Channel 2 FX1 Send Level
+Map	Fader 11		Channel 3 FX1 Send Level
+Map	Fader 12		Channel 4 FX1 Send Level
+Map	Fader 13		Channel 5 FX1 Send Level
+Map	Fader 14		Channel 6 FX1 Send Level
+Map	Fader 15		Channel 7 FX1 Send Level
+Map	Fader 16		Channel 8 FX1 Send Level
+
+Map	Switch 9		Channel 1 Mute
+Map	Switch 10		Channel 2 Mute
+Map	Switch 11		Channel 3 Mute
+Map	Switch 12		Channel 4 Mute
+Map	Switch 13		Channel 5 Mute
+Map	Switch 14		Channel 6 Mute
+Map	Switch 15		Channel 7 Mute
+Map	Switch 16		Channel 8 Mute
+
+// Bank C: FX2 Send 1-8, Channel Solo 1-8
+Map	Fader 17		Channel 1 FX2 Send Level
+Map	Fader 18		Channel 2 FX2 Send Level
+Map	Fader 19		Channel 3 FX2 Send Level
+Map	Fader 20		Channel 4 FX2 Send Level
+Map	Fader 21		Channel 5 FX2 Send Level
+Map	Fader 22		Channel 6 FX2 Send Level
+Map	Fader 23		Channel 7 FX2 Send Level
+Map	Fader 24		Channel 8 FX2 Send Level
+
+Map	Knob 17		FX1 Return Level
+Map	Knob 18		FX2 Return Level
+Map	Knob 19		FX3 Return Level
+Map	Knob 20		FX4 Return Level
+Map	Knob 21		FX5 Return Level
+Map	Knob 22		FX6 Return Level
+Map	Knob 23		FX7 Return Level
+Map	Knob 24		FX8 Return Level
+
+Map	Switch 17		Channel 1 Solo
+Map	Switch 18		Channel 2 Solo
+Map	Switch 19		Channel 3 Solo
+Map	Switch 20		Channel 4 Solo
+Map	Switch 21		Channel 5 Solo
+Map	Switch 22		Channel 6 Solo
+Map	Switch 23		Channel 7 Solo
+Map	Switch 24		Channel 8 Solo
+
+
+// Kong Drum Designer
 
 Scope	Propellerheads	Kong Drum Designer
 //	Control Surface Item	Key	Remotable Item
@@ -94,9 +216,21 @@ Map	Knob 1		Drum 1 Pitch Offset
 Map	Knob 2		Drum 2 Pitch Offset
 Map	Knob 3		Drum 3 Pitch Offset
 Map	Knob 4		Drum 4 Pitch Offset
+Map	Knob 9		Drum 1 Pan
+Map	Knob 10		Drum 2 Pan
+Map	Knob 11		Drum 3 Pan
+Map	Knob 12		Drum 4 Pan
+Map	Switch 9		Drum 1 Mute
+Map	Switch 10		Drum 2 Mute
+Map	Switch 11		Drum 3 Mute
+Map	Switch 12		Drum 4 Mute
+Map	Switch 17		Drum 1 Solo
+Map	Switch 18		Drum 2 Solo
+Map	Switch 19		Drum 3 Solo
+Map	Switch 20		Drum 4 Solo
 
 
-// ── SubTractor Analog Synthesizer ─────────────────────────────────────────────
+// SubTractor Analog Synthesizer
 
 Scope	Propellerheads	SubTractor Analog Synthesizer
 //	Control Surface Item	Key	Remotable Item
@@ -120,7 +254,7 @@ Map	Switch 1		Filter Link Freq On/Off
 Map	Switch 2		Filter2 On/Off
 
 
-// ── Thor Polysonic Synthesizer ────────────────────────────────────────────────
+// Thor Polysonic Synthesizer
 
 Scope	Propellerheads	Thor Polysonic Synthesizer
 //	Control Surface Item	Key	Remotable Item
@@ -142,7 +276,7 @@ Map	Fader 7		Delay Feedback
 Map	Fader 8		Rotary 1
 
 
-// ── Malstrom Graintable Synthesizer ──────────────────────────────────────────
+// Malstrom Graintable Synthesizer
 
 Scope	Propellerheads	Malstrom Graintable Synthesizer
 //	Control Surface Item	Key	Remotable Item
@@ -164,28 +298,21 @@ Map	Fader 7		Modulator A Rate
 Map	Fader 8		Modulator B Rate
 
 
-// ── NN-XT Advanced Sampler ────────────────────────────────────────────────────
+// NN-XT Advanced Sampler
 
 Scope	Propellerheads	NN-XT Advanced Sampler
 //	Control Surface Item	Key	Remotable Item
 Map	Knob 1		Filter Freq
 Map	Knob 2		Filter Res
-Map	Knob 3		Amp Env Attack
-Map	Knob 4		Amp Env Decay
-Map	Knob 5		Amp Env Release
-Map	Knob 6		Mod Env Decay
 Map	Knob 7		Master Volume
-Map	Fader 1		Filter Freq
-Map	Fader 2		Filter Res
-Map	Fader 3		Amp Env Attack
-Map	Fader 4		Amp Env Decay
-Map	Fader 5		Amp Env Sustain
-Map	Fader 6		Amp Env Release
-Map	Fader 7		Mod Env Decay
-Map	Fader 8		Master Volume
+Map	Fader 1		Amp Env Attack
+Map	Fader 2		Amp Env Decay
+Map	Fader 3		Amp Env Release
+Map	Fader 4		Mod Env Decay
+Map	Switch 1		Sample
 
 
-// ── Redrum Drum Computer ──────────────────────────────────────────────────────
+// Redrum Drum Computer
 
 Scope	Propellerheads	Redrum Drum Computer
 //	Control Surface Item	Key	Remotable Item
@@ -197,15 +324,170 @@ Map	Fader 5		Drum 5 Level
 Map	Fader 6		Drum 6 Level
 Map	Fader 7		Drum 7 Level
 Map	Fader 8		Drum 8 Level
-Map	Knob 1		Drum 1 Pan
-Map	Knob 2		Drum 2 Pan
-Map	Knob 3		Drum 3 Pan
-Map	Knob 4		Drum 4 Pan
-Map	Knob 5		Drum 5 Pan
-Map	Knob 6		Drum 6 Pan
-Map	Knob 7		Drum 7 Pan
-Map	Knob 8		Drum 8 Pan
-Map	Switch 1		Channel 1 Mute
-Map	Switch 2		Channel 2 Mute
-Map	Switch 3		Channel 3 Mute
-Map	Switch 4		Channel 4 Mute
+Map	Knob 9		Drum 1 Pan
+Map	Knob 10		Drum 2 Pan
+Map	Knob 11		Drum 3 Pan
+Map	Knob 12		Drum 4 Pan
+Map	Knob 13		Drum 5 Pan
+Map	Knob 14		Drum 6 Pan
+Map	Knob 15		Drum 7 Pan
+Map	Knob 16		Drum 8 Pan
+Map	Switch 9		Drum 1 Mute
+Map	Switch 10		Drum 2 Mute
+Map	Switch 11		Drum 3 Mute
+Map	Switch 12		Drum 4 Mute
+Map	Switch 13		Drum 5 Mute
+Map	Switch 14		Drum 6 Mute
+Map	Switch 15		Drum 7 Mute
+Map	Switch 16		Drum 8 Mute
+Map	Switch 17		Drum 1 Solo
+Map	Switch 18		Drum 2 Solo
+Map	Switch 19		Drum 3 Solo
+Map	Switch 20		Drum 4 Solo
+Map	Switch 21		Drum 5 Solo
+Map	Switch 22		Drum 6 Solo
+Map	Switch 23		Drum 7 Solo
+Map	Switch 24		Drum 8 Solo
+
+
+// Europa Shapeshifting Synthesizer (Reason 10-14)
+
+Scope	Propellerhead Software	se.propellerheads.Europa
+//	Control Surface Item	Key	Remotable Item
+Map	Knob 1		Osc1 Shape
+Map	Knob 2		Osc1 Semi
+Map	Knob 3		Osc1 Filter Freq
+Map	Knob 4		Osc1 Filter Reso
+Map	Knob 5		Filter Freq
+Map	Knob 6		Filter Reso
+Map	Knob 7		Osc1 Harm Pos
+Map	Knob 8		Osc1 Harm Amt
+Map	Fader 1		Env 1 Attack
+Map	Fader 2		Env 1 Decay
+Map	Fader 3		Env 1 Sustain
+Map	Fader 4		Env 1 Release
+Map	Fader 5		Master Level
+Map	Switch 1		Engine 1 On/Off
+Map	Switch 2		Engine 2 On/Off
+Map	Switch 3		Engine 3 On/Off
+Map	Switch 4		Filter On/Off
+
+
+// Grain Sample Manipulator (Reason 10-14)
+
+Scope	Propellerhead Software	se.propellerheads.Grain
+//	Control Surface Item	Key	Remotable Item
+Map	Knob 1		Position
+Map	Knob 2		Jitter
+Map	Knob 3		Grain Length
+Map	Knob 4		Speed
+Map	Knob 5		End Pos
+Map	Knob 6		Filter Freq
+Map	Knob 7		Rate-Spacing
+Map	Knob 8		Scroll
+Map	Fader 1		Amp Env Attack
+Map	Fader 2		Amp Env Decay
+Map	Fader 3		Amp Env Sustain
+Map	Fader 4		Amp Env Release
+Map	Fader 5		Master Level
+Map	Switch 1		Filter On/Off
+Map	Switch 2		Freeze
+
+
+// Mimic Creative Sampler (Reason 12-14)
+
+Scope	Propellerhead Software	se.propellerheads.Mimic
+//	Control Surface Item	Key	Remotable Item
+Map	Knob 1		Filter Freq 1
+Map	Knob 2		Filter Reso 1
+Map	Knob 3		Start Pos 1
+Map	Knob 4		End Pos 1
+Map	Knob 5		Amp Gain 1
+Map	Knob 6		Stretch Speed 1
+Map	Fader 1		Amp Attack 1
+Map	Fader 2		Amp Decay 1
+Map	Fader 3		Amp Sustain 1
+Map	Fader 4		Amp Release 1
+Map	Fader 5		Master Volume
+
+
+// Monotone Bass Synthesizer (Reason 11-14)
+
+Scope	Propellerhead Software	se.propellerheads.Monotone
+//	Control Surface Item	Key	Remotable Item
+Map	Knob 1		Filter Freq
+Map	Knob 2		Filter Reso
+Map	Knob 3		Filter Env Amt
+Map	Knob 4		Drive
+Map	Knob 5		Glide
+Map	Knob 6		Sub Level
+Map	Fader 1		Filter Env Attack
+Map	Fader 2		Filter Env Decay
+Map	Fader 3		Amp Env Attack
+Map	Fader 4		Amp Env Release
+Map	Fader 5		Master Level
+
+
+// Master Bus Compressor (Reason SSL Mixer)
+
+Scope	Propellerhead Software	se.propellerheads.MasterCompressor
+//	Control Surface Item	Key	Remotable Item
+Map	Knob 1		Threshold
+Map	Knob 2		Ratio
+Map	Knob 3		Attack
+Map	Knob 4		Release
+Map	Knob 5		Make-Up
+Map	Switch 1		On
+
+
+// Processed Pianos (Radical Piano)
+
+Scope	Propellerhead Software	se.propellerheads.ProcessedPianos
+//	Control Surface Item	Key	Remotable Item
+Map	Knob 1		Mic_A_DryLevel
+Map	Knob 2		Mic_A_Attack
+Map	Knob 3		Mic_A_LowCut
+Map	Knob 4		Mic_A_HiCut
+Map	Knob 5		Mic_A_Pan
+Map	Knob 6		Mic_A_StereoWidth
+Map	Knob 7		Mic_A_EchoAmount
+Map	Knob 8		Mic_A_ReverbAmount
+Map	Fader 1		Mic_A_HammerNoise
+Map	Fader 2		Mic_A_ReleaseResonance
+Map	Fader 3		Mic_A_FXLevel
+Map	Switch 1		Mic_A_On
+Map	Switch 2		Mic_B_On
+
+
+// Complex-1 Modular Synthesizer
+
+Scope	Propellerhead Software	se.propellerheads.Complex
+//	Control Surface Item	Key	Remotable Item
+Map	Knob 1		Osc 1 Shape
+Map	Knob 2		Osc 1 FM Amt
+Map	Knob 3		Osc 2 Shape
+Map	Knob 4		Osc 2 FM Amt
+Map	Knob 5		Comb Freq
+Map	Knob 6		Comb Peak
+Map	Knob 7		Filter Freq
+Map	Knob 8		Filter Reso
+Map	Fader 1		Attack
+Map	Fader 2		Decay
+Map	Fader 3		Sustain
+Map	Fader 4		Release
+
+
+// Klang Tuned Percussion
+
+Scope	Propellerhead Software	se.propellerheads.Klang
+//	Control Surface Item	Key	Remotable Item
+Map	Knob 1		Filter_Cutoff
+Map	Knob 2		Filter_Reso
+Map	Knob 3		Filter_Env
+Map	Knob 4		Semitune
+Map	Fader 1		Filter_Attack
+Map	Fader 2		Filter_Decay
+Map	Fader 3		Filter_Sustain
+Map	Fader 4		Filter_Release
+Map	Switch 1		Filter_On
+
